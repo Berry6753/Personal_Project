@@ -38,13 +38,16 @@ public class OptionMenu : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(Resolution_Btn.gameObject);
             }
             else
+            {
                 gameObject.SetActive(false);
+                UIManager.Instance.MainMenu.InteractableBtn();
+                UIManager.Instance.MainMenu.FocusBtn(2);
+            }
         }
     }
 
     public void OnClickSoundBtn()
     { 
-        Sound_Btn.interactable = false;
         Resolution_Btn.interactable = false;
         SoundOption.SetActive(true);
     }
