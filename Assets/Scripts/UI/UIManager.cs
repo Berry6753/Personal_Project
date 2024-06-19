@@ -25,4 +25,9 @@ public class UIManager : Singleton<UIManager>
     {
         MainUI.InteractableBtn();
     }
+
+    public void DisableInfo()
+    { 
+        MainUI.DisableInfoUI();
+    }
 }
