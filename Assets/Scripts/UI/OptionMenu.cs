@@ -8,6 +8,7 @@ public class OptionMenu : MonoBehaviour
     [SerializeField] private Button Resolution_Btn;
     [SerializeField] private GameObject SoundOption;
     [SerializeField] private GameObject ResolutionOption;
+    [SerializeField] private MenuClose close;
 
     private void OnEnable()
     {
@@ -39,7 +40,8 @@ public class OptionMenu : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
+                close.OnClick_CloseBtn();
+                UIManager.Instance.DisableInfo();
                 UIManager.Instance.InteractableBtn();
                 UIManager.Instance.FocusBtn(2);
             }
@@ -55,7 +57,6 @@ public class OptionMenu : MonoBehaviour
     public void OnClick_ResolutionBtn()
     {
         Sound_Btn.interactable = false;
-        Resolution_Btn.interactable = false;
         ResolutionOption.SetActive(true);
     }
 }
