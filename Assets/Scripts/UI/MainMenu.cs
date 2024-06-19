@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject StartMenu;
     [SerializeField] private GameObject LoadMenu;
     [SerializeField] private GameObject OptionMenu;
+    [SerializeField] private GameObject Info;
     [SerializeField] private List<Button> MainUI_Btn;
 
     private void Awake()
@@ -19,18 +21,24 @@ public class MainMenu : MonoBehaviour
     public void OnClick_StartBtn()
     {
         StartMenu.SetActive(true);
+        Info.SetActive(true);
+        Info.GetComponentInChildren<TMP_Text>().text = "Please select a location to save the new game";
         UnInteractableBtn();
     }
 
     public void OnClick_LoadBtn()
     { 
         LoadMenu.SetActive(true);
+        Info.SetActive(true);
+        Info.GetComponentInChildren<TMP_Text>().text = "Please select a game to load";
         UnInteractableBtn();
     }
 
     public void OnClick_OptionBtn()
     {
         OptionMenu.SetActive(true);
+        Info.SetActive(true);
+        Info.GetComponentInChildren<TMP_Text>().text = "Change settings";
         UnInteractableBtn();
     }
 
@@ -62,5 +70,10 @@ public class MainMenu : MonoBehaviour
         { 
             btn.interactable = false;
         }
+    }
+
+    public void DisableInfoUI()
+    {
+        Info.GetComponent<MenuClose>().OnClick_CloseBtn();
     }
 }
