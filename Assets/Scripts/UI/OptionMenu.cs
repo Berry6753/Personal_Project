@@ -40,19 +40,19 @@ public class OptionMenu : MonoBehaviour
             else
             {
                 gameObject.SetActive(false);
-                UIManager.Instance.MainMenu.InteractableBtn();
-                UIManager.Instance.MainMenu.FocusBtn(2);
+                UIManager.Instance.InteractableBtn();
+                UIManager.Instance.FocusBtn(2);
             }
         }
     }
 
-    public void OnClickSoundBtn()
+    public void OnClick_SoundBtn()
     { 
         Resolution_Btn.interactable = false;
         SoundOption.SetActive(true);
     }
 
-    public void OnClickResolution_Btn()
+    public void OnClick_ResolutionBtn()
     {
         Sound_Btn.interactable = false;
         Resolution_Btn.interactable = false;

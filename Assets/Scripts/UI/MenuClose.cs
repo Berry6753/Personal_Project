@@ -10,12 +10,12 @@ public class MenuClose : MonoBehaviour
         anim = GetComponent<Animator>();    
     }
 
-    public void OnClickCloseBtn()
+    public void OnClick_CloseBtn()
     {
-        StartCoroutine(OnClickClose());
+        StartCoroutine(CoClose());
     }
 
-    private IEnumerator OnClickClose()
+    private IEnumerator CoClose()
     {
         anim.SetTrigger("Close");
         yield return new WaitForSeconds(0.5f);

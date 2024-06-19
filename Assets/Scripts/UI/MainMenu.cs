@@ -16,25 +16,25 @@ public class MainMenu : MonoBehaviour
         FocusBtn(0);
     }
 
-    public void OnClickStartBtn()
+    public void OnClick_StartBtn()
     {
         StartMenu.SetActive(true);
         UnInteractableBtn();
     }
 
-    public void OnClickLoadBtn()
+    public void OnClick_LoadBtn()
     { 
         LoadMenu.SetActive(true);
         UnInteractableBtn();
     }
 
-    public void OnClickOptionBtn()
+    public void OnClick_OptionBtn()
     {
         OptionMenu.SetActive(true);
         UnInteractableBtn();
     }
 
-    public void OnClickExitBtn()
+    public void OnClick_ExitBtn()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
