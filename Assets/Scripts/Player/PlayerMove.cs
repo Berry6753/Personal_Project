@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Scripting;
 
 public class PlayerMove : MonoBehaviour
@@ -26,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashGaurd = Animator.StringToHash("isGaurd");
     private readonly int hashDie = Animator.StringToHash("isDie");
+
+    private Vector3 inputMoveMent = Vector3.zero;
 
     private float _moveSpeed;
     private float _dashSpeed;
@@ -54,6 +57,45 @@ public class PlayerMove : MonoBehaviour
         _stateMachine.AddState(State.DIE, new DieState(this));
     }
 
+    public void OnMove_Player(InputAction.CallbackContext context)
+    { 
+        inputMoveMent = context.ReadValue<Vector3>();
+    }
+
+    public void OnJump_Player(InputAction.CallbackContext context)
+    { 
+        //todo
+    }
+
+    public void OnDash_Player(InputAction.CallbackContext context)
+    { 
+    
+    }
+
+    public void OnAttack_Player(InputAction.CallbackContext context)
+    { 
+    
+    }
+
+    public void OnGaurd_Player(InputAction.CallbackContext context)
+    { 
+        
+    }
+
+    public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
+    { 
+    
+    }
+
+    public void OnInteraction_Player(InputAction.CallbackContext context)
+    { 
+    
+    }
+
+    public void OnPause_Player(InputAction.CallbackContext context)
+    { 
+    
+    }
 
 
     private class BasePlayerState : BaseState
