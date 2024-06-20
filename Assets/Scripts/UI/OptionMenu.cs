@@ -8,22 +8,16 @@ public class OptionMenu : MonoBehaviour
     [SerializeField] private Button Resolution_Btn;
     [SerializeField] private GameObject SoundOption;
     [SerializeField] private GameObject ResolutionOption;
-    [SerializeField] private MenuClose close;
 
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(Sound_Btn.gameObject);   
     }
 
-    private void Update()
+    public void OptionQuit()
     {
-        Quit();
-    }
-
-    private void Quit()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
             if (SoundOption.activeSelf)
             {
                 SoundOption.SetActive(false);
@@ -40,16 +34,17 @@ public class OptionMenu : MonoBehaviour
             }
             else
             {
-                close.OnClick_CloseBtn();
+                UIManager.Instance.DisableOption();
                 UIManager.Instance.DisableInfo();
                 UIManager.Instance.InteractableBtn();
                 UIManager.Instance.FocusBtn(2);
             }
-        }
+        //}
     }
 
     public void OnClick_SoundBtn()
     { 
+        Sound_Btn.interactable = false;
         Resolution_Btn.interactable = false;
         SoundOption.SetActive(true);
     }
@@ -57,6 +52,7 @@ public class OptionMenu : MonoBehaviour
     public void OnClick_ResolutionBtn()
     {
         Sound_Btn.interactable = false;
+        Resolution_Btn.interactable = false;
         ResolutionOption.SetActive(true);
     }
 }

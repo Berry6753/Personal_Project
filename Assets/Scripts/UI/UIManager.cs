@@ -16,6 +16,16 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] private MainMenu MainUI;
 
+    private void Awake()
+    {
+        FocusBtn(0);
+    }
+
+    private void Update()
+    {
+        MainUI.Quit();
+    }
+
     public void FocusBtn(int index)
     { 
         MainUI.FocusBtn(index);
@@ -29,5 +39,18 @@ public class UIManager : Singleton<UIManager>
     public void DisableInfo()
     { 
         MainUI.DisableInfoUI();
+    }
+
+    //public void DisableStart()
+    //{
+    //    MainUI.DisableStartUI();
+    //}
+    //public void DisableLoad()
+    //{
+    //    MainUI.DisableLoadUI();
+    //}
+    public void DisableOption()
+    {
+        MainUI.DisableOptionUI();
     }
 }

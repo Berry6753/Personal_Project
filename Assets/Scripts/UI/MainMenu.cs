@@ -13,11 +13,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject Info;
     [SerializeField] private List<Button> MainUI_Btn;
 
-    private void Awake()
-    { 
-        FocusBtn(0);
-    }
-
     public void OnClick_StartBtn()
     {
         StartMenu.SetActive(true);
@@ -51,6 +46,31 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
+    public void Quit()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (StartMenu.activeSelf)
+            {
+                DisableInfoUI();
+                DisableStartUI();
+                InteractableBtn();
+                FocusBtn(0);
+            }
+            else if (LoadMenu.activeSelf)
+            {
+                DisableInfoUI();
+                DisableLoadUI();
+                InteractableBtn();
+                FocusBtn(1);
+            }
+            else if (OptionMenu.activeSelf)
+            {
+                OptionMenu.GetComponent<OptionMenu>().OptionQuit();
+            }
+        }
+    }
+
     public void FocusBtn(int index)
     {
         EventSystem.current.SetSelectedGameObject(MainUI_Btn[index].gameObject);
@@ -72,8 +92,28 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    private void DisableUI(GameObject gObj)
+    {
+        gObj.GetComponent<MenuClose>().OnClickCloseBtn();
+    }
+
     public void DisableInfoUI()
     {
-        Info.GetComponent<MenuClose>().OnClick_CloseBtn();
+        DisableUI(Info);
+    }
+
+    public void DisableStartUI()
+    {
+        DisableUI(StartMenu);
+    }
+
+    public void DisableLoadUI()
+    {
+        DisableUI(LoadMenu);
+    }
+
+    public void DisableOptionUI()
+    {
+        DisableUI(OptionMenu);
     }
 }
