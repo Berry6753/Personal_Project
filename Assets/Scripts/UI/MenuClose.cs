@@ -10,7 +10,7 @@ public class MenuClose : MonoBehaviour
         anim = GetComponent<Animator>();    
     }
 
-    public void OnClick_CloseBtn()
+    public void OnClickCloseBtn()
     {
         StartCoroutine(CoClose());
     }
@@ -18,7 +18,7 @@ public class MenuClose : MonoBehaviour
     private IEnumerator CoClose()
     {
         anim.SetTrigger("Close");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
         anim.ResetTrigger("Close");
     }
