@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     { 
         IDLE,
         RUN,
-        JUMP,
+        //JUMP,
         DASH,
         ATTACK,
         GAURD,
@@ -19,10 +19,10 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
 
-    [SerializeField] private StateMachine _stateMachine;
+    private StateMachine _stateMachine;
 
     private readonly int hashRun = Animator.StringToHash("isRun");
-    private readonly int hashJump = Animator.StringToHash("isJump");
+    //private readonly int hashJump = Animator.StringToHash("isJump");
     private readonly int hashDash = Animator.StringToHash("isDash");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashGaurd = Animator.StringToHash("isGaurd");
@@ -38,7 +38,7 @@ public class PlayerMove : MonoBehaviour
     private float _dashTime = 0.5f;
     private float _dashCoolDown = 0.2f;
 
-    private int _jumpCount;
+    //private int _jumpCount;
     private int _attackCount;
 
     private bool _isMove = false;
@@ -57,17 +57,12 @@ public class PlayerMove : MonoBehaviour
 
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.RUN, new RunState(this));
-        _stateMachine.AddState(State.JUMP, new JumpState(this));
+        //_stateMachine.AddState(State.JUMP, new JumpState(this));
         _stateMachine.AddState(State.DASH, new DashState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
-    }
-
-    private void Update()
-    {
-        Debug.Log(state); 
     }
 
     public void OnMove_Player(InputAction.CallbackContext context)
@@ -106,10 +101,10 @@ public class PlayerMove : MonoBehaviour
         rb.MovePosition(rb.position + moveDir);
     }
 
-    public void OnJump_Player(InputAction.CallbackContext context)
-    { 
-        //todo
-    }
+    //public void OnJump_Player(InputAction.CallbackContext context)
+    //{ 
+    //    //todo
+    //}
 
     public void OnDash_Player(InputAction.CallbackContext context)
     {
@@ -159,18 +154,20 @@ public class PlayerMove : MonoBehaviour
         _isDash = false;
     }
     public void OnAttack_Player(InputAction.CallbackContext context)
-    { 
-    
+    {
+        if (_isDie) return;
+        if (_isMove) return;
     }
 
     public void OnGaurd_Player(InputAction.CallbackContext context)
-    { 
-        
+    {
+        if (_isDie) return;
+        if (_isMove) return;
     }
 
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
-    { 
-    
+    {
+        if (_isDie) return;
     }
 
     public void OnInteraction_Player(InputAction.CallbackContext context)
@@ -213,7 +210,8 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetBool(player.hashRun, false);
-            //todo
+
+            player.state = State.IDLE;
         }
     }
     private class RunState : BasePlayerState
@@ -222,21 +220,23 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetBool(player.hashRun, true);
+
+            player.state = State.RUN;
         }
         public override void FixedUpdate()
         {
             player.MovePlayer();
         }
     }
-    private class JumpState : BasePlayerState
-    { 
-        public JumpState(PlayerMove player) : base(player) { }
-        public override void Enter()
-        {
-            player.anim.SetBool(player.hashJump, true);
-            //todo
-        }
-    }
+    //private class JumpState : BasePlayerState
+    //{ 
+    //    public JumpState(PlayerMove player) : base(player) { }
+    //    public override void Enter()
+    //    {
+    //        player.anim.SetBool(player.hashJump, true);
+    //        //todo
+    //    }
+    //}
     private class DashState : BasePlayerState
     {
         public DashState(PlayerMove player) : base(player) { }
@@ -245,6 +245,8 @@ public class PlayerMove : MonoBehaviour
             player.anim.SetBool(player.hashRun, false);
             player.anim.SetTrigger(player.hashDash);
             player.DashPlayer();
+
+            player.state = State.DASH;
         }
     }
     private class AttackState : BasePlayerState
@@ -254,6 +256,8 @@ public class PlayerMove : MonoBehaviour
         {
             player.anim.SetTrigger(player.hashAttack);
             //todo
+
+            player.state = State.ATTACK;
         }
     }
     private class GaurdState : BasePlayerState
@@ -263,6 +267,8 @@ public class PlayerMove : MonoBehaviour
         {
             player.anim.SetTrigger(player.hashGaurd);
             //todo
+
+            player.state = State.GAURD;
         }
     }
     private class DieState : BasePlayerState
@@ -271,6 +277,8 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetTrigger(player.hashDie);
+
+            player.state = State.DIE;
         }
     }
 }
