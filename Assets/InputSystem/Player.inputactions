@@ -212,6 +212,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Camera",
+            "id": "2ec094fd-3064-412c-9880-84e8a6a4636f",
+            "actions": [
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "dff94fbe-adca-4464-b4e6-266be9272542",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7cfd88eb-7d27-4d73-9895-1c1b8379a738",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
