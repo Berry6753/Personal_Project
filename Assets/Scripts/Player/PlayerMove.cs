@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Scripting;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -76,10 +74,6 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDie) return;
         if (_isMove) return;
-
-        if (context.started) _isInput = true;
-        else if (context.canceled) _isInput = false;
-
 
         inputMoveMent = context.ReadValue<Vector3>();
 
@@ -158,18 +152,18 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(_dashCoolDown);
 
-        if (inputMoveMent != Vector3.zero)
-        {
-            _stateMachine.ChangeState(State.RUN);
-        }
-        else
-        {
-            _stateMachine.ChangeState(State.IDLE);
-        }
+        //if (inputMoveMent != Vector3.zero)
+        //{
+        //    _stateMachine.ChangeState(State.RUN);
+        //}
+        //else
+        //{
+        //    _stateMachine.ChangeState(State.IDLE);
+        //}
+        _stateMachine.ChangeState(State.IDLE);
         _isMove = false;
         _isDash = false;
     }
-
     public void OnAttack_Player(InputAction.CallbackContext context)
     { 
     
@@ -195,6 +189,21 @@ public class PlayerMove : MonoBehaviour
     
     }
 
+    private void ChangeStateAfterMove()
+    {
+        if (CheckInput())
+            _stateMachine.ChangeState(State.RUN);
+        else
+            _stateMachine.ChangeState(State.IDLE);
+    }
+    private bool CheckInput()
+    {
+        if (inputMoveMent == Vector3.zero)
+            _isInput = false;
+        else
+            _isInput = true;
+        return _isInput;
+    }
 
     private class BasePlayerState : BaseState
     {
@@ -242,6 +251,10 @@ public class PlayerMove : MonoBehaviour
             player.anim.SetBool(player.hashRun, false);
             player.anim.SetTrigger(player.hashDash);
             player.DashPlayer();
+        }
+        public override void Exit()
+        {
+            player.ChangeStateAfterMove();
         }
     }
     private class AttackState : BasePlayerState
