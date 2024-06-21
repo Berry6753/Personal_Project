@@ -31,17 +31,23 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 inputMoveMent = Vector3.zero;
 
-    private float _moveSpeed;
-    private float _dashSpeed;
+    private float _moveSpeed = 5.0f;
+    private float _rotSpeed = 10.0f;
+    private float _dashSpeed = 20.0f;
     private float _jumpSpeed;
+
+    private float _dashTime = 0.5f;
+    private float _dashCoolDown = 0.2f;
 
     private int _jumpCount;
     private int _attackCount;
 
-    private bool _isDash;
-    private bool _isJump;
-    private bool _isAttack;
-    private bool _isDie;
+    private bool _isMove = false;
+    private bool _isDash = false;
+    private bool _isJump = false;
+    private bool _isAttack = false;
+    private bool _isDie = false;
+    private bool _isInput = false;
 
     private void Awake()
     {
