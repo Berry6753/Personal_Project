@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
 
-    private StateMachine _stateMachine;
+    [SerializeField] private StateMachine _stateMachine;
 
     private readonly int hashRun = Animator.StringToHash("isRun");
     private readonly int hashJump = Animator.StringToHash("isJump");
