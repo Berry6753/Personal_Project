@@ -59,14 +59,55 @@ public class PlayerMove : MonoBehaviour
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.RUN, new RunState(this));
         _stateMachine.AddState(State.JUMP, new JumpState(this));
+        _stateMachine.AddState(State.DASH, new DashState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
+        _stateMachine.InitState(State.IDLE);
+    }
+
+    private void Update()
+    {
+        Debug.Log(state); 
     }
 
     public void OnMove_Player(InputAction.CallbackContext context)
-    { 
+    {
+        if (_isDie) return;
+        if (_isMove) return;
+
+        if (context.started) _isInput = true;
+        else if (context.canceled) _isInput = false;
+
+
         inputMoveMent = context.ReadValue<Vector3>();
+
+        if (inputMoveMent != Vector3.zero)
+        {
+            _stateMachine.ChangeState(State.RUN);
+        }
+        else
+        {
+            _stateMachine.ChangeState(State.IDLE);
+        }
+    }
+
+    private void MovePlayer()
+    {
+        if (_isDie)
+        {
+            inputMoveMent = Vector3.zero;
+            return;
+        }
+        Vector3 moveDir = inputMoveMent * _moveSpeed * Time.deltaTime;
+
+        if(moveDir != Vector3.zero)
+        {
+            Quaternion playerRotation = Quaternion.LookRotation(moveDir);
+            rb.rotation = Quaternion.Lerp(playerRotation, rb.rotation, _rotSpeed * Time.deltaTime);
+        }
+
+        rb.MovePosition(rb.position + moveDir);
     }
 
     public void OnJump_Player(InputAction.CallbackContext context)
