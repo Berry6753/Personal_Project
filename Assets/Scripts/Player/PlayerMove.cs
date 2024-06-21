@@ -73,9 +73,10 @@ public class PlayerMove : MonoBehaviour
     public void OnMove_Player(InputAction.CallbackContext context)
     {
         if (_isDie) return;
-        if (_isMove) return;
 
         inputMoveMent = context.ReadValue<Vector3>();
+
+        if (_isMove) return;
 
         if (inputMoveMent != Vector3.zero)
         {
@@ -113,6 +114,7 @@ public class PlayerMove : MonoBehaviour
     public void OnDash_Player(InputAction.CallbackContext context)
     {
         if (_isDie) return;
+        if (_isMove) return;
 
         if(context.started)
         {
@@ -149,6 +151,7 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(_dashTime);
 
         rb.velocity = Vector3.zero;
+        //inputMoveMent = Vector3.zero;
 
         yield return new WaitForSeconds(_dashCoolDown);
 
@@ -160,7 +163,8 @@ public class PlayerMove : MonoBehaviour
         //{
         //    _stateMachine.ChangeState(State.IDLE);
         //}
-        _stateMachine.ChangeState(State.IDLE);
+        //_stateMachine.ChangeState(State.IDLE);
+        ChangeStateAfterMove();
         _isMove = false;
         _isDash = false;
     }
@@ -251,10 +255,6 @@ public class PlayerMove : MonoBehaviour
             player.anim.SetBool(player.hashRun, false);
             player.anim.SetTrigger(player.hashDash);
             player.DashPlayer();
-        }
-        public override void Exit()
-        {
-            player.ChangeStateAfterMove();
         }
     }
     private class AttackState : BasePlayerState
