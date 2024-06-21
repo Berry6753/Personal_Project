@@ -155,18 +155,17 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(_dashTime);
 
         rb.velocity = Vector3.zero;
-        //inputMoveMent = Vector3.zero;
 
         yield return new WaitForSeconds(_dashCoolDown);
 
-        //if (inputMoveMent != Vector3.zero)
-        //{
-        //    _stateMachine.ChangeState(State.RUN);
-        //}
-        //else
-        //{
-        //    _stateMachine.ChangeState(State.IDLE);
-        //}
+        if (inputMoveMent != Vector3.zero)
+        {
+            _stateMachine.ChangeState(State.RUN);
+        }
+        else
+        {
+            _stateMachine.ChangeState(State.IDLE);
+        }
         _isMove = false;
         _isDash = false;
     }
