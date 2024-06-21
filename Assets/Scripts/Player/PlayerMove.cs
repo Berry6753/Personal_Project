@@ -25,6 +25,7 @@ public class PlayerMove : MonoBehaviour
 
     private readonly int hashRun = Animator.StringToHash("isRun");
     private readonly int hashJump = Animator.StringToHash("isJump");
+    private readonly int hashDash = Animator.StringToHash("isDash");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashGaurd = Animator.StringToHash("isGaurd");
     private readonly int hashDie = Animator.StringToHash("isDie");
@@ -116,8 +117,58 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void OnDash_Player(InputAction.CallbackContext context)
+    {
+        if (_isDie) return;
+
+        if(context.started)
+        {
+            _stateMachine.ChangeState(State.DASH);
+        }
+    }
+    private void DashPlayer()
     { 
-    
+        if( _isDie)
+        {
+            inputMoveMent = Vector3.zero;
+            return;
+        }
+
+        if (_isDash) return;
+
+        StartCoroutine(AfterDash());
+    }
+    private IEnumerator AfterDash()
+    {
+        _isDash = true;
+        _isMove = true;
+        Vector3 dashDir;
+        if (inputMoveMent == Vector3.zero)
+        {
+            dashDir = transform.forward;
+        }
+        else
+        {
+            dashDir = inputMoveMent;
+        }
+        rb.velocity = dashDir * _dashSpeed;
+
+        yield return new WaitForSeconds(_dashTime);
+
+        rb.velocity = Vector3.zero;
+        //inputMoveMent = Vector3.zero;
+
+        yield return new WaitForSeconds(_dashCoolDown);
+
+        //if (inputMoveMent != Vector3.zero)
+        //{
+        //    _stateMachine.ChangeState(State.RUN);
+        //}
+        //else
+        //{
+        //    _stateMachine.ChangeState(State.IDLE);
+        //}
+        _isMove = false;
+        _isDash = false;
     }
 
     public void OnAttack_Player(InputAction.CallbackContext context)
