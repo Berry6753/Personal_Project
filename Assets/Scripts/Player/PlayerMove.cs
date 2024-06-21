@@ -11,6 +11,7 @@ public class PlayerMove : MonoBehaviour
         IDLE,
         RUN,
         JUMP,
+        DASH,
         ATTACK,
         GAURD,
         DIE
@@ -131,6 +132,20 @@ public class PlayerMove : MonoBehaviour
         {
             player.anim.SetBool(player.hashJump, true);
             //todo
+        }
+    }
+    private class DashState : BasePlayerState
+    {
+        public DashState(PlayerMove player) : base(player) { }
+        public override void Enter()
+        {
+            player.anim.SetBool(player.hashRun, false);
+            player.anim.SetTrigger(player.hashDash);
+            player.DashPlayer();
+        }
+        public override void Exit()
+        {
+            player.anim.ResetTrigger(player.hashDash);
         }
     }
     private class AttackState : BasePlayerState
