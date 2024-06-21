@@ -169,7 +169,10 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetBool(player.hashRun, true);
-            //todo
+        }
+        public override void FixedUpdate()
+        {
+            player.MovePlayer();
         }
     }
     private class JumpState : BasePlayerState
