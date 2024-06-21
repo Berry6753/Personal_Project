@@ -243,10 +243,6 @@ public class PlayerMove : MonoBehaviour
             player.anim.SetTrigger(player.hashDash);
             player.DashPlayer();
         }
-        public override void Exit()
-        {
-            player.anim.ResetTrigger(player.hashDash);
-        }
     }
     private class AttackState : BasePlayerState
     { 
