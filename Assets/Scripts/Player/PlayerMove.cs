@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -126,9 +127,9 @@ public class PlayerMove : MonoBehaviour
 
         if (_isDash) return;
 
-        StartCoroutine(AfterDash());
+        StartCoroutine(CoAfterDash());
     }
-    private IEnumerator AfterDash()
+    private IEnumerator CoAfterDash()
     {
         _isDash = true;
         _isMove = true;
