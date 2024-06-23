@@ -40,7 +40,7 @@ public class PlayerMove : MonoBehaviour
     private float _dashCoolDown = 0.2f;
 
     //private int _jumpCount;
-    private int _attackCount;
+    private int _attackCount = Animator.StringToHash("AttackCount");
 
     private bool _isMove = false;
     private bool _isDash = false;
