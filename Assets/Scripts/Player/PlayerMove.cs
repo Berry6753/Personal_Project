@@ -249,6 +249,10 @@ public class PlayerMove : MonoBehaviour
 
             player.state = State.DASH;
         }
+        public override void Exit()
+        {
+            player.anim.ResetTrigger(player.hashDash);
+        }
     }
     private class AttackState : BasePlayerState
     { 
@@ -260,6 +264,10 @@ public class PlayerMove : MonoBehaviour
 
             player.state = State.ATTACK;
         }
+        public override void Exit()
+        {
+            player.anim.ResetTrigger(player.hashAttack);
+        }
     }
     private class GaurdState : BasePlayerState
     { 
@@ -270,6 +278,10 @@ public class PlayerMove : MonoBehaviour
             //todo
 
             player.state = State.GAURD;
+        }
+        public override void Exit()
+        {
+            player.anim.ResetTrigger(player.hashGaurd);
         }
     }
     private class DieState : BasePlayerState
