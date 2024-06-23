@@ -166,26 +166,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private IEnumerator CoAttackState()
-    {
-        while (_attackCount >= 4)
-        {
-            if (_attackCount == 0)
-            {
-                anim.SetTrigger(hashAttack);
-                anim.SetInteger(hashAttackCount, _attackCount);
-                yield return new WaitForSeconds(1f);
-                _attackCount++;
-            }
-            else
-            {
-                anim.SetTrigger(hashAttack);
-                anim.SetInteger(hashAttackCount, _attackCount);
-                yield return new WaitForSeconds(1f);
-                _attackCount++;
-            }
-        }
-    }
+    //private IEnumerator CoAttackState()
+    //{
+    //    float timer = 0f;
+    //    while (_attackCount >= 4 || timer < 2.0f)
+    //    {
+    //        anim.SetTrigger(hashAttack);
+    //        anim.SetInteger(hashAttackCount, _attackCount);
+    //        _attackCount++;
+    //    }
+    //}
 
     public void OnGaurd_Player(InputAction.CallbackContext context)
     {
