@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMove : MonoBehaviour
 {
     public enum State
-    { 
+    {
         IDLE,
         RUN,
         //JUMP,
@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashGaurd = Animator.StringToHash("isGaurd");
     private readonly int hashDie = Animator.StringToHash("isDie");
+    private readonly int hashAttackCount = Animator.StringToHash("AttackCount");
 
     private Vector3 inputMoveMent = Vector3.zero;
 
@@ -40,7 +41,7 @@ public class PlayerMove : MonoBehaviour
     private float _dashCoolDown = 0.2f;
 
     //private int _jumpCount;
-    private int _attackCount = Animator.StringToHash("AttackCount");
+    private int _attackCount = 0;
 
     private bool _isMove = false;
     private bool _isDash = false;
@@ -93,7 +94,7 @@ public class PlayerMove : MonoBehaviour
         }
         Vector3 moveDir = inputMoveMent * _moveSpeed * Time.deltaTime;
 
-        if(moveDir != Vector3.zero)
+        if (moveDir != Vector3.zero)
         {
             Quaternion playerRotation = Quaternion.LookRotation(moveDir);
             rb.rotation = Quaternion.Lerp(playerRotation, rb.rotation, _rotSpeed * Time.deltaTime);
@@ -112,14 +113,14 @@ public class PlayerMove : MonoBehaviour
         if (_isDie) return;
         if (_isMove) return;
 
-        if(context.started)
+        if (context.started)
         {
             _stateMachine.ChangeState(State.DASH);
         }
     }
     private void DashPlayer()
-    { 
-        if( _isDie)
+    {
+        if (_isDie)
         {
             inputMoveMent = Vector3.zero;
             return;
@@ -158,6 +159,32 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDie) return;
         if (_isMove) return;
+
+        if (context.started)
+        {
+            _stateMachine.ChangeState(State.ATTACK);
+        }
+    }
+
+    private IEnumerator CoAttackState()
+    {
+        while (_attackCount >= 4)
+        {
+            if (_attackCount == 0)
+            {
+                anim.SetTrigger(hashAttack);
+                anim.SetInteger(hashAttackCount, _attackCount);
+                yield return new WaitForSeconds(1f);
+                _attackCount++;
+            }
+            else
+            {
+                anim.SetTrigger(hashAttack);
+                anim.SetInteger(hashAttackCount, _attackCount);
+                yield return new WaitForSeconds(1f);
+                _attackCount++;
+            }
+        }
     }
 
     public void OnGaurd_Player(InputAction.CallbackContext context)
@@ -260,7 +287,7 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetTrigger(player.hashAttack);
-            //todo
+            player.anim.SetInteger(player.hashAttackCount, player._attackCount);
 
             player.state = State.ATTACK;
         }
@@ -282,6 +309,7 @@ public class PlayerMove : MonoBehaviour
         public override void Exit()
         {
             player.anim.ResetTrigger(player.hashGaurd);
+            player._attackCount = 0;
         }
     }
     private class DieState : BasePlayerState
