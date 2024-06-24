@@ -74,6 +74,7 @@ public class PlayerMove : MonoBehaviour
         inputMoveMent = context.ReadValue<Vector3>();
 
         if (_isMove) return;
+        if(_isAttack) return;
 
         if (inputMoveMent != Vector3.zero)
         {
@@ -112,6 +113,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDie) return;
         if (_isMove) return;
+        if (_isAttack) return;
 
         if (context.started)
         {
@@ -162,20 +164,10 @@ public class PlayerMove : MonoBehaviour
 
         if (context.started)
         {
+            _isAttack = true;
             _stateMachine.ChangeState(State.ATTACK);
         }
     }
-
-    //private IEnumerator CoAttackState()
-    //{
-    //    float timer = 0f;
-    //    while (_attackCount >= 4 || timer < 2.0f)
-    //    {
-    //        anim.SetTrigger(hashAttack);
-    //        anim.SetInteger(hashAttackCount, _attackCount);
-    //        _attackCount++;
-    //    }
-    //}
 
     public void OnGaurd_Player(InputAction.CallbackContext context)
     {
@@ -198,7 +190,7 @@ public class PlayerMove : MonoBehaviour
     
     }
 
-    private void ChangeStateAfterMove()
+    public void ChangeStateAfterMove()
     {
         if (CheckInput())
             _stateMachine.ChangeState(State.RUN);
@@ -284,6 +276,7 @@ public class PlayerMove : MonoBehaviour
         public override void Exit()
         {
             player.anim.ResetTrigger(player.hashAttack);
+            player._isAttack = false;
         }
     }
     private class GaurdState : BasePlayerState
@@ -299,7 +292,6 @@ public class PlayerMove : MonoBehaviour
         public override void Exit()
         {
             player.anim.ResetTrigger(player.hashGaurd);
-            player._attackCount = 0;
         }
     }
     private class DieState : BasePlayerState
