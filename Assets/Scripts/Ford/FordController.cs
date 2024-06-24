@@ -8,14 +8,13 @@ public class FordController : MonoBehaviour
     {
         IDLE,
         TRACE,
-        IDLEATTACK,
-        TRACEATTACK
     }
     public State state = State.IDLE;
     private StateMachine _stateMachine;
 
     private Transform fordTr;
     private Transform playerTr;
+    private List<GameObject> enemyList = new List<GameObject>();
 
     private float _speed;
     private float _followDistance = 0.1f;
@@ -31,8 +30,6 @@ public class FordController : MonoBehaviour
         
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.TRACE, new TraceState(this));
-        _stateMachine.AddState(State.IDLEATTACK, new IdleAttackState(this));
-        _stateMachine.AddState(State.TRACEATTACK, new TraceAttackState(this));
         _stateMachine.InitState(State.IDLE);
     }
 
@@ -54,28 +51,13 @@ public class FordController : MonoBehaviour
 
             float distance = Vector3.Distance(fordTr.position, playerTr.position);
 
-            bool test = true;
-            if (test) // todo Ford 공격키를 입력 받았을 때의 값을 받아와서 true 변경
+            if (distance < _followDistance)
             {
-                if (distance < _followDistance)
-                {
-                    _stateMachine.ChangeState(State.IDLE);
-                }
-                else
-                {
-                    _stateMachine.ChangeState(State.TRACE);
-                }
+                _stateMachine.ChangeState(State.IDLE);
             }
             else
             {
-                if (distance < _followDistance)
-                {
-                    _stateMachine.ChangeState(State.IDLEATTACK);
-                }
-                else
-                { 
-                    _stateMachine.ChangeState(State.TRACEATTACK);
-                }
+                _stateMachine.ChangeState(State.TRACE);
             }
         }
     }
@@ -83,6 +65,20 @@ public class FordController : MonoBehaviour
     private void ChasePlayer()
     {
         transform.position = Vector3.Lerp(fordTr.position, playerTr.position, _lerpSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(fordTr.rotation, playerTr.rotation, _lerpSpeed * Time.deltaTime);
+    }
+
+    public void OnAttack()
+    { 
+        //float[] distance = Vector3.Distance(fordTr.position, enemyList.)
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyList.Add(other.gameObject);
+        }
     }
 
     private class BaseFordState : BaseState
@@ -107,26 +103,6 @@ public class FordController : MonoBehaviour
         public override void Enter()
         {
             
-        }
-        public override void FixedUpdate()
-        {
-            ford.ChasePlayer();
-        }
-    }
-    private class IdleAttackState : BaseFordState
-    { 
-        public IdleAttackState(FordController ford) : base(ford) { }
-        public override void Enter()
-        {
-            
-        }
-    }
-    private class TraceAttackState : BaseFordState
-    { 
-        public TraceAttackState(FordController ford) : base(ford) { }
-        public override void Enter()
-        {
-           
         }
         public override void FixedUpdate()
         {
