@@ -187,7 +187,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnPause_Player(InputAction.CallbackContext context)
     { 
-    
+        GameManager.Instance.PauseGame();
     }
 
     public void ChangeStateAfterMove()
