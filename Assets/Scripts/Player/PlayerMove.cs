@@ -200,7 +200,7 @@ public class PlayerMove : MonoBehaviour
     private void OnGaurd()
     {
         inputMoveMent = Vector3.zero;
-        _isMove = true;
+        
     }
 
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
