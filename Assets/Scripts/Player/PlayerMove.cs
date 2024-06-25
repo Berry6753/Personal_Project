@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class PlayerMove : MonoBehaviour
 
     private float _dashTime = 0.5f;
     private float _dashCoolDown = 0.2f;
+    private float _auxiliary;
+    private float _auxiliaryTimer = 0f;
 
     //private int _jumpCount;
     private int _attackCount = 0;
@@ -65,6 +68,18 @@ public class PlayerMove : MonoBehaviour
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
+    }
+    private void Update()
+    {
+        if (_auxiliary != 0)
+        {
+            _auxiliaryTimer += Time.deltaTime;
+            if (_auxiliaryTimer > 0.1f)
+            {
+                GameManager.Instance.ShootBullet();
+                _auxiliaryTimer = 0;
+            }
+        }
     }
 
     public void OnMove_Player(InputAction.CallbackContext context)
@@ -178,6 +193,8 @@ public class PlayerMove : MonoBehaviour
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
     {
         if (_isDie) return;
+
+        _auxiliary = context.ReadValue<float>();
     }
 
     public void OnInteraction_Player(InputAction.CallbackContext context)
