@@ -199,7 +199,12 @@ public class PlayerMove : MonoBehaviour
 
     public void OnInteraction_Player(InputAction.CallbackContext context)
     { 
-    
+        if (_isDie) return;
+
+        if (context.started)
+        { 
+        
+        }
     }
 
     public void OnPause_Player(InputAction.CallbackContext context)
