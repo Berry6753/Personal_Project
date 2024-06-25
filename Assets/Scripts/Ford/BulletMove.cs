@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 public class BulletMove : MonoBehaviour
-{
+{ 
+    private Vector3 _direction;
+
     private float _bulletSpeed = 20.0f;
 
     private bool _isDestroyed;
@@ -19,11 +21,12 @@ public class BulletMove : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * _bulletSpeed * Time.deltaTime);
+        transform.Translate(_direction * _bulletSpeed * Time.deltaTime);
     }
 
     public void Shoot()
     {
+        _direction = Vector3.forward;
         Invoke("DestroyBullet", 5f);
     }
 

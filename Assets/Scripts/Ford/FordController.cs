@@ -18,15 +18,14 @@ public class FordController : MonoBehaviour
 
     private Transform fordTr;
     private Transform playerTr;
-    private List<GameObject> enemyList = new List<GameObject>();
+    public List<GameObject> enemyList = new List<GameObject>();
 
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _shootPoint;
+    [SerializeField] private GameObject _bulletSpawnObject;
 
-    private float _speed;
     private float _followDistance = 0.1f;
     private float _lerpSpeed = 0.8f;
-    private float _fireTime = 0.5f;
     public float fordDmg;
 
     private bool _isAttack = false;
@@ -107,7 +106,7 @@ public class FordController : MonoBehaviour
 
     public void OnAttack()
     {
-        if (enemyList.Count <= 0) return;
+        if (enemyList.Count <= 0) return; //거리밖에서도 쏘고싶을 시 주석처리
 
         _isAttack = true;
         var bullet = _bulletPool.Get();
@@ -118,7 +117,7 @@ public class FordController : MonoBehaviour
 
     private BulletMove CreateBullet()
     {   
-        BulletMove bullet = Instantiate(_bulletPrefab, _shootPoint.transform.position, _shootPoint.transform.rotation, _shootPoint.transform).GetComponent<BulletMove>();
+        BulletMove bullet = Instantiate(_bulletPrefab, _shootPoint.transform.position, _shootPoint.transform.rotation, _bulletSpawnObject.transform).GetComponent<BulletMove>();
         bullet.SetManagedPool(_bulletPool);
         return bullet;
     }
