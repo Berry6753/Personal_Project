@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 25474110}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShootingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,6 +154,37 @@ Transform:
   m_Father: {fileID: 6887347242338800399}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &218790191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 218790192}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &218790192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218790191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220195340
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220195341}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player_CameraLootAtPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2186182549871426126}
-  ford: {fileID: 0}
+  ford: {fileID: 648929674773325868}
 --- !u!4 &1075178741
 Transform:
   m_ObjectHideFlags: 0
@@ -540,7 +571,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1689513496
 GameObject:
@@ -551,7 +582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689513497}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player_FordPos
   m_TagString: PlayerFordPos
   m_Icon: {fileID: 0}
@@ -573,6 +604,120 @@ Transform:
   m_Father: {fileID: 1521427081384042742}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1943801101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943801105}
+  - component: {fileID: 1943801104}
+  - component: {fileID: 1943801103}
+  - component: {fileID: 1943801102}
+  - component: {fileID: 1943801106}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1943801102
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943801101}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1943801103
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943801101}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1943801104
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943801101}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1943801105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943801101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 1, z: 37.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1943801106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943801101}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6871465896531121
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208812973453835305}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Leg_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3151056060491450284}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_R_Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,7 +807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8613338500494962638}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_02_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +855,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1305378428841463568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4184232177668575767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426784355573517218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_Spring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8124996601022632176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +919,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2756852593779957005}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_FATwist_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -790,9 +935,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648929674773325865}
-  - component: {fileID: 648929674773325866}
   - component: {fileID: 648929674773325867}
-  m_Layer: 0
+  - component: {fileID: 648929674773325868}
+  m_Layer: 8
   m_Name: Ford
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8142199174288859931}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_BI_Yuki_Passive_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -854,7 +999,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4689992056432903287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +1015,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853913608830719447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -886,7 +1031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 591668921339011780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP01_Sword 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +1047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6041384760145027282}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_R_Fryingpan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +1063,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3806116572355656653}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand_R_Acc_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -934,7 +1079,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8285150599239855790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_TTwist_L_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +1095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6811176199612727956}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_Acc_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +1126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8570036046604926722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -997,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9128056915725584827}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Elbow_Acc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1013,7 +1158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1037562163250762547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wp_Special_Yuki_S005_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1061,7 +1206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2116756963216528346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,7 +1238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5034748677807897103}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1109,7 +1254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8568385464953216130}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_Back_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5993618587065995018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_FATwist_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,7 +1319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5995017410352620268}
   - component: {fileID: 3454206244298272646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DRONE_FlyingRobot02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,19 +1359,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &648929674773325866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 165127633873580691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb1d3558aac1e34a8b4528702e43f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
 --- !u!135 &648929674773325867
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1240,6 +1372,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &648929674773325868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165127633873580691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb1d3558aac1e34a8b4528702e43f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  enemyList: []
+  _bulletPrefab: {fileID: 2202583750339331705, guid: e604dd2f6c5f942448c69c5821eaeebb, type: 3}
+  _shootPoint: {fileID: 25474109}
+  _bulletSpawnObject: {fileID: 218790191}
+  fordDmg: 0
 --- !u!1 &656644900106593712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 68245367147990934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1265,7 +1415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2711954793536392425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LF_NonSpring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1311,7 +1461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983965294339434526}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_B_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1357,7 +1507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4835992501151079293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EyeFxPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 109171925215940569}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wp_Special_Yuki_S005_Sword 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1421,7 +1571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2381383431860121916}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger1Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5659513050986969501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fx_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1453,7 +1603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2800400239700485878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_BI_Yuki_Passive_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1485,7 +1635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2344898240985215856}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1501,7 +1651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8721939164289467099}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1517,7 +1667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1249040057824749281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1548,7 +1698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2710943593960097671}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RF_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1689,7 +1839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2753634197763795783}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deco_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1762,7 +1912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2332269023924415553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1834,7 +1984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7418378819569807161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: L_Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1850,7 +2000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8132978564229037199}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Leg_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1915,7 +2065,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7825971305021585272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deco_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1931,7 +2081,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3680310069953753602}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Hip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1947,7 +2097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879333920537806764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_B_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +2113,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347702278594548413}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2034,7 +2184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3140349949511630472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_TTwist_R_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777189137642548386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L ForeTwist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2147,7 +2297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4545282688887469601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2163,7 +2313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 661160661606890025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2179,7 +2329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4801323721998824010}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Thigh_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2211,7 +2361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1842527461523377138}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2227,7 +2377,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7528103448522769978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_01_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2243,7 +2393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7572400595852522451}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: L_Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2259,7 +2409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6887347242338800399}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DRONE_FlyingRobot_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2307,7 +2457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7446093948476527885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ForeArm_R_String_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2323,7 +2473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746724586012302240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_L_Fishing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2339,7 +2489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 738487177015158140}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2371,7 +2521,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 165298725989346528}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2387,7 +2537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5346336300628713748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2408,7 +2558,7 @@ GameObject:
   - component: {fileID: 2186182549871426128}
   - component: {fileID: 2186182549871426126}
   - component: {fileID: 2186182549871426127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2662,7 +2812,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7413384546687500459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2678,7 +2828,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2606533443196625971}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: String_Spring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2710,7 +2860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3556030673185704449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2759,7 +2909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3969411940404442279}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: L_Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2823,7 +2973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8683974958210735163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_02_Case
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2854,7 +3004,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4411214439059752416}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_UATwist_R_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2870,7 +3020,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6607187953969588380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_TTwist_L_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2886,7 +3036,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3965322720936521757}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2902,7 +3052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9137614557926173359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2918,7 +3068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677518347370599840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_M_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2950,7 +3100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4769439208813033300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2966,7 +3116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8083648897443588823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_TTwist_R_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2982,7 +3132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3538703031406438638}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP02_Back_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2998,7 +3148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6171026031378845415}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3029,7 +3179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3794342897216427489}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_M_Burner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3045,7 +3195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1508741521343024271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_M_Tool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3092,7 +3242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8538932566449310591}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3139,7 +3289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3777050316714431017}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Equip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3187,7 +3337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3364044512804628134}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_Hip_R_NonSpring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3235,7 +3385,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8339863675915798035}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: String_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3251,7 +3401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6641522240012737845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3267,7 +3417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4940848691176872919}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Knee_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3325,7 +3475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7584885941514105999}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3357,7 +3507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1844063881623913960}
   - component: {fileID: 4536567191420709800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP01_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3437,7 +3587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464197801871226144}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger2Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3453,7 +3603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6158120731229038204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fx_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3485,7 +3635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7465018524205416712}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3523,7 +3673,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923331214396857168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Body_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3539,7 +3689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3109622465874401944}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3643,7 +3793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4318029459677840515}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_M_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3659,7 +3809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4103866827086735437}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: L_Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3675,7 +3825,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3487074735767079749}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Clavicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3831,7 +3981,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7553955446737970726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_UATwist_L_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3933,7 +4083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6409323233219134276}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Elbow_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3949,7 +4099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4369769102723901558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thigh_L_Acc_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3965,7 +4115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7414357463352868099}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Body_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3998,7 +4148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3328622340456721792}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Total
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4029,7 +4179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6792531464606281080}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_M_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4121,7 +4271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3721574777764266778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_M_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4137,7 +4287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4788997802594866630}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4153,7 +4303,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511921806401839454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4200,7 +4350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7761254323052800329}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LB_Spring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4224,7 +4374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276130192894144985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4241,7 +4391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8712889954897727886}
   - component: {fileID: 8737377927276060690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DRONE_FlyingRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4257,7 +4407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7634998124801433713}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_R_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4335,7 +4485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5631922824407206210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4369,7 +4519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4274529902001190316}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_M_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4447,7 +4597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3615169449221352978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Hip_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4493,7 +4643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1489237928071373971}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4576,7 +4726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6156159034138453023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back_Blade_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4592,7 +4742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3205373415941154578}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4686,7 +4836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8530732136795926239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4702,7 +4852,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6127468827643103685}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4735,7 +4885,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570193106131314245}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back_Blade_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4799,7 +4949,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4325962387755431116}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fx_Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4830,7 +4980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4245705212536222324}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fx_Hand_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4862,7 +5012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5740945225325896844}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_BI_Yuki_Passive_Seal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +5105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4961325236219504088}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Thigh_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +5121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4118874815572986678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thigh_L_Acc_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,7 +5153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 518534934040992859}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RB_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5019,7 +5169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2216354025589843172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_B_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5035,7 +5185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 172692476328044178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RB_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5082,7 +5232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4721492042205200914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_FATwist_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5193,7 +5343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2845805704860450016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deco_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5225,7 +5375,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5020285161840530018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RB_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5256,7 +5406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2051757445987192073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back_Blade_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5288,7 +5438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8918668942013826685}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Seal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5304,7 +5454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462273997239211666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5352,7 +5502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3548378284336915328}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LF_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5383,7 +5533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5337759726262853888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5417,7 +5567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3812944102762587076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_B_Spring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5433,7 +5583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4972700270007177673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RF_NonSpring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5465,7 +5615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5217128733129584666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5481,7 +5631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6692744129131325951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5528,7 +5678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5501478905252591578}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5560,7 +5710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1261579767465369009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LF_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5576,7 +5726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 336691004288545816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Footsteps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5592,7 +5742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8893785487285379857}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5624,7 +5774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9178516615954373085}
   - component: {fileID: 6739982123980278194}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Yuki_S005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5640,7 +5790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4621362630463911034}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5656,7 +5806,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6468266845681529723}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LF_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5704,7 +5854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6823464568714745009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_R_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5766,7 +5916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1290676394760994018}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: String_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5782,7 +5932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3851679289907073413}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_FATwist_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5864,7 +6014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6766015449132089305}
   - component: {fileID: 1794706512822936021}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP02_Back_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5880,7 +6030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7954709384575089919}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_R_Driver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5896,7 +6046,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 638243262271964485}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5912,7 +6062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3095542673850053055}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_Hip_L_NonSpring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5928,7 +6078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8341119689045512211}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5945,7 +6095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1287727600228222990}
   - component: {fileID: 6839217366845779380}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP01_Sword_Scabbard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5961,7 +6111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4597656821233999527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Thigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6009,7 +6159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4741213980973904861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Hip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6025,7 +6175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3481123390022892324}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6057,7 +6207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5829614786515546138}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Knee_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6073,7 +6223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4791039338313557853}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Elbow_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6089,7 +6239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4989370942336764719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_BI_Yuki_Passive_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6137,7 +6287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2935250910916216742}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6153,7 +6303,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4264548516482807265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6187,7 +6337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8031047429205386871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6203,7 +6353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7480229642854378330}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R ForeTwist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6415,7 +6565,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5539183526386877343}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_02_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6431,7 +6581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4435000791409783629}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R UpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6494,7 +6644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4275430948650848820}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LB_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6584,7 +6734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2393532994126306989}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Toe0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6630,7 +6780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7570925454422048843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LB_Spring_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6646,7 +6796,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8867819418688988524}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Par_01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6677,7 +6827,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 38163647741951995}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6693,7 +6843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7840724785527327101}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LB_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6709,7 +6859,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1428443580261910154}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RF_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6725,7 +6875,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1321387728351173260}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Toe0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6741,7 +6891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9173074235142740772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6757,7 +6907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359366572469514921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deco_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6773,7 +6923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7618770202371912981}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6789,7 +6939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2650563613177651293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fx_Hand_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6805,7 +6955,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6809790305772590219}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_NonSpring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6821,7 +6971,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5234604020637007063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RB_Spring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6837,7 +6987,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6081104736983936121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6853,7 +7003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2811535680107957780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_LB_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6869,7 +7019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3436034845617696602}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6885,7 +7035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1550251232167117923}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_R_NonSpring_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6901,7 +7051,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2364331434724963621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6934,7 +7084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7706660177373435946}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_01_Case
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6950,7 +7100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6729052131273676141}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_R_NonSpring_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7141,7 +7291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4905205491877617409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_B_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7204,7 +7354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6449799892364845479}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RF_NonSpring_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7235,7 +7385,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4343844663354049124}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Equip_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7251,7 +7401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1847947799870270085}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Sholder_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7283,7 +7433,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6070624519277914043}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7315,7 +7465,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3421590897110808326}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_UATwist_L_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7331,7 +7481,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2961423732261721088}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Craft_L_Cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7380,7 +7530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2043694649975908352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Foot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7398,7 +7548,7 @@ GameObject:
   - component: {fileID: 8579636957235734188}
   - component: {fileID: 4003924678668655446}
   - component: {fileID: 3320978791644123358}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wp_Special_Yuki_S005_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7430,7 +7580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6903107143799741003}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_Leg_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7446,7 +7596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3262624612914175203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7478,7 +7628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2821246189902657539}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_RB_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7509,7 +7659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3444650801005342876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger1Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7525,7 +7675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8437271776528698045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Toe0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7557,7 +7707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3554696559025546203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger2Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7573,7 +7723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7046362373869847889}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_PH_Sholder_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7605,7 +7755,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1315643252431712100}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Calf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7621,7 +7771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2450236118647690549}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_R_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7683,7 +7833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7426371389989616135}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back_Blade_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7744,7 +7894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8687603224219923877}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP02_Back_Sword 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7760,7 +7910,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4637752619283674378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingRobot_eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7776,7 +7926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575308423360168481}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_Acc_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7807,7 +7957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37279238657932831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WP_Yuki_S005_SP01_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7908,7 +8058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7357735532242400665}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_Back_Spring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7924,7 +8074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1844879362726763782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 R Finger0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7956,7 +8106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2988985065694010414}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 L Finger0Nub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7987,7 +8137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4258890169812011065}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 Spine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8037,7 +8187,7 @@ GameObject:
   - component: {fileID: 6757909001090179391}
   - component: {fileID: 2949370181561771319}
   - component: {fileID: 1356549633034472620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wp_Special_Yuki_S005_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8150,7 +8300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7560054650827017173}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8166,7 +8316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7495462932875726710}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NS_BN_UATwist_R_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8197,7 +8347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5405647494099341282}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon_Special_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8213,7 +8363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6896640233965623798}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bip001 HeadNub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8276,7 +8426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8954531059232816724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_Acc_NonSpring_SWRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8292,7 +8442,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646137864468008246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Temp_L_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8308,7 +8458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787788507470224309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WPS_Yuki_01_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8355,7 +8505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5166198472300355795}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cloth_L_Acc_NonSpring_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
