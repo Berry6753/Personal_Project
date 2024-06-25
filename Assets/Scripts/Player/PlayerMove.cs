@@ -51,6 +51,7 @@ public class PlayerMove : MonoBehaviour
     private bool _isDash = false;
     private bool _isJump = false;
     private bool _isAttack = false;
+    private bool _isGaurd = false;
     private bool _isDie = false;
     private bool _isInput = false;
 
@@ -91,6 +92,7 @@ public class PlayerMove : MonoBehaviour
 
         if (_isMove) return;
         if(_isAttack) return;
+        if(_isGaurd) return;
 
         if (inputMoveMent != Vector3.zero)
         {
@@ -130,6 +132,7 @@ public class PlayerMove : MonoBehaviour
         if (_isDie) return;
         if (_isMove) return;
         if (_isAttack) return;
+        if (_isGaurd) return;
 
         if (context.started)
         {
@@ -177,6 +180,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDie) return;
         if (_isMove) return;
+        if (_isGaurd) return;
 
         if (context.started)
         {
@@ -200,7 +204,7 @@ public class PlayerMove : MonoBehaviour
     private void OnGaurd()
     {
         inputMoveMent = Vector3.zero;
-        
+        _isGaurd = true;
     }
 
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
@@ -329,7 +333,7 @@ public class PlayerMove : MonoBehaviour
         public override void Exit()
         {
             player.anim.SetBool(player.hashGaurd, false);
-            player._isMove = false;
+            player._isGaurd = false;
         }
     }
     private class DieState : BasePlayerState
