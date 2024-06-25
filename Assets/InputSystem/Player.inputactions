@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "AuxiliaryAttack",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "a9e77010-3da0-427d-9223-bd637e97a58c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Guard",
