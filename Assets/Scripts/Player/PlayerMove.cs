@@ -42,6 +42,7 @@ public class PlayerMove : MonoBehaviour
     private float _dashCoolDown = 0.2f;
     private float _auxiliary;
     private float _auxiliaryTimer = 0f;
+    private float _gaurd;
 
     //private int _jumpCount;
     private int _attackCount = 0;
@@ -188,6 +189,18 @@ public class PlayerMove : MonoBehaviour
     {
         if (_isDie) return;
         if (_isMove) return;
+        if (_isAttack) return;
+
+        _gaurd = context.ReadValue<float>();
+        if (_gaurd != 0)
+            _stateMachine.ChangeState(State.GAURD);
+        else
+            ChangeStateAfterMove();
+    }
+    private void OnGaurd()
+    {
+        inputMoveMent = Vector3.zero;
+        _isMove = true;
     }
 
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
@@ -306,14 +319,17 @@ public class PlayerMove : MonoBehaviour
         public GaurdState(PlayerMove player) : base(player) { }
         public override void Enter()
         {
-            player.anim.SetTrigger(player.hashGaurd);
+            player.anim.SetBool(player.hashRun, false);
+            player.anim.SetBool(player.hashGaurd, true);
+            player.OnGaurd();
             //todo
 
             player.state = State.GAURD;
         }
         public override void Exit()
         {
-            player.anim.ResetTrigger(player.hashGaurd);
+            player.anim.SetBool(player.hashGaurd, false);
+            player._isMove = false;
         }
     }
     private class DieState : BasePlayerState
