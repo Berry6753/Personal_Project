@@ -52,12 +52,12 @@
                 },
                 {
                     "name": "Guard",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "a823ee54-fcf3-47bb-bcfd-d099852419a3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interaction",
