@@ -16,6 +16,11 @@ public class GameManager : Singleton<GameManager>
         player.ChangeStateAfterMove();
     }
 
+    public void ShootBullet()
+    {
+        ford.OnAttack();
+    }
+
     public void PauseGame()
     {
         if (isGameOnTime)
