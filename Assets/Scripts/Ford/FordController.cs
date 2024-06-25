@@ -78,6 +78,25 @@ public class FordController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemyList.Add(other.gameObject);
+            CheckDistanceofEnemy();
+            Debug.Log("b");
+        }
+    }
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Enemy"))
+    //    {
+    //        enemyList.Add(other.gameObject);
+    //        CheckDistanceofEnemy();
+    //        Debug.Log("a");
+    //    }
+    //}
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemyList.Remove(other.gameObject);
+            CheckDistanceofEnemy();
         }
     }
 
