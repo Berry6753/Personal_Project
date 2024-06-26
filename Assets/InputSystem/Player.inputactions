@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "ebec7ded-bbe8-442d-87c4-5321d97698d2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Attack",
                     "type": "Button",
                     "id": "90cc19c0-0006-4d12-90b5-1cb8d2221fba",
@@ -210,32 +219,15 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera",
-            "id": "2ec094fd-3064-412c-9880-84e8a6a4636f",
-            "actions": [
-                {
-                    "name": "Rotation",
-                    "type": "Value",
-                    "id": "dff94fbe-adca-4464-b4e6-266be9272542",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "7cfd88eb-7d27-4d73-9895-1c1b8379a738",
+                    "id": "eb2742e1-4841-4aee-84ea-97fe539e01b7",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
