@@ -130,10 +130,44 @@ public class PlayerMove : MonoBehaviour
         if (moveDir != Vector3.zero)
         {
             Quaternion playerRotation = Quaternion.LookRotation(moveDir);
-            rb.rotation = Quaternion.Lerp(playerRotation, rb.rotation, _rotSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(playerRotation, transform.rotation, _rotSpeed * Time.deltaTime);
         }
 
-        rb.MovePosition(rb.position + moveDir);
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f))
+        //{
+        //    Vector3 slopeMovement = Vector3.ProjectOnPlane(moveDir, hit.normal);
+        //    cc.Move(slopeMovement);
+        //}
+        //else
+        //{
+        //    cc.Move(moveDir);
+        //}
+        cc.Move(moveDir);
+    }
+
+    public void OnLook_Player(InputAction.CallbackContext context)
+    { 
+        inputRotation = context.ReadValue<Vector2>();
+    }
+    private void LookPlayer()
+    { 
+        if(_mainCamera == null) return;
+
+        _chinemachineTargetYaw += inputRotation.x;
+        _chinemachineTargetPitch -= inputRotation.y;
+
+        _chinemachineTargetYaw = ClampAngle(_chinemachineTargetYaw, float.MinValue, float.MaxValue);
+        _chinemachineTargetPitch = ClampAngle(_chinemachineTargetPitch, _bottomClamp, _topClamp);
+
+        chinemachineTarget.transform.rotation = Quaternion.Euler(_chinemachineTargetPitch, _chinemachineTargetYaw, 0.0f);
+    }
+    private float ClampAngle(float angle, float min, float max)
+    {
+        if (angle < -360f) angle += 360f;
+        if (angle > 360f) angle -= 360f;
+        return Mathf.Clamp(angle, min, max);
+
     }
 
     //public void OnJump_Player(InputAction.CallbackContext context)
