@@ -57,8 +57,10 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        if (_mainCamera == null)
+            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
