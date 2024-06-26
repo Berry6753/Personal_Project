@@ -140,6 +140,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = _mainCamera.transform.forward * inputMoveMent.z + _mainCamera.transform.right * inputMoveMent.x;
         moveDir.y = 0;
+        moveDir.Normalize();
         moveDir *= _moveSpeed * Time.deltaTime;
 
         if (moveDir != Vector3.zero)
