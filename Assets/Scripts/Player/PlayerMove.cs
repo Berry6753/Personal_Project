@@ -44,6 +44,13 @@ public class PlayerMove : MonoBehaviour
     private float _auxiliaryTimer = 0f;
     private float _gaurd;
 
+    [SerializeField] private GameObject chinemachineTarget;
+    private float _chinemachineTargetYaw;
+    private float _chinemachineTargetPitch;
+
+    private float _topClamp = 70.0f;
+    private float _bottomClamp = -30.0f;
+
     //private int _jumpCount;
     private int _attackCount = 0;
 
