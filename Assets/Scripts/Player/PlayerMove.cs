@@ -259,6 +259,16 @@ public class PlayerMove : MonoBehaviour
         return _isInput;
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     private class BasePlayerState : BaseState
     {
         protected PlayerMove player;
