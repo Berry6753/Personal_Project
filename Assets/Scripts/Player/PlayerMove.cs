@@ -31,7 +31,12 @@ public class PlayerMove : MonoBehaviour
     private readonly int hashDie = Animator.StringToHash("isDie");
     private readonly int hashAttackCount = Animator.StringToHash("AttackCount");
 
+    private Vector3 dir;
     private Vector3 inputMoveMent = Vector3.zero;
+    private Vector2 inputRotation = Vector2.zero;
+
+    [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private LayerMask _dashLayer;
 
     private float _moveSpeed = 5.0f;
     private float _rotSpeed = 10.0f;
