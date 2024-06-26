@@ -18,8 +18,9 @@ public class PlayerMove : MonoBehaviour
     }
     public State state = State.IDLE;
 
-    private Rigidbody rb;
+    private CharacterController cc;
     private Animator anim;
+    private GameObject _mainCamera;
 
     private StateMachine _stateMachine;
 
@@ -96,6 +97,17 @@ public class PlayerMove : MonoBehaviour
                 _auxiliaryTimer = 0;
             }
         }
+
+        LookPlayer();
+
+        if (!cc.isGrounded)
+        {
+            dir.y += Physics.gravity.y * Time.deltaTime;
+            cc.Move(dir * Time.deltaTime);
+        }
+        else
+            dir.y = 0;
+        Debug.DrawRay(transform.position, Vector3.down, Color.red, 0.1f);
     }
 
     public void OnMove_Player(InputAction.CallbackContext context)
@@ -125,7 +137,10 @@ public class PlayerMove : MonoBehaviour
             inputMoveMent = Vector3.zero;
             return;
         }
-        Vector3 moveDir = inputMoveMent * _moveSpeed * Time.deltaTime;
+
+        Vector3 moveDir = _mainCamera.transform.forward * inputMoveMent.z + _mainCamera.transform.right * inputMoveMent.x;
+        moveDir.y = 0;
+        moveDir *= _moveSpeed * Time.deltaTime;
 
         if (moveDir != Vector3.zero)
         {
