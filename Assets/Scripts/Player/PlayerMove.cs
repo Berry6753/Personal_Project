@@ -169,21 +169,14 @@ public class PlayerMove : MonoBehaviour
     {
         _isDash = true;
         _isMove = true;
-        Vector3 dashDir;
-        if (inputMoveMent == Vector3.zero)
+
+        float endTime = Time.time + _dashTime;
+        while (Time.time < endTime)
         {
-            dashDir = transform.forward;
+            cc.Move(transform.forward * _dashSpeed * Time.deltaTime);
+            yield return null;
         }
-        else
-        {
-            dashDir = inputMoveMent;
-        }
-        rb.velocity = dashDir * _dashSpeed;
-
-        yield return new WaitForSeconds(_dashTime);
-
-        rb.velocity = Vector3.zero;
-
+        
         yield return new WaitForSeconds(_dashCoolDown);
 
         ChangeStateAfterMove();
