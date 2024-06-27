@@ -220,6 +220,8 @@ public class PlayerMove : MonoBehaviour
         _isDash = true;
         _isMove = true;
 
+        gameObject.layer = _dashLayer;
+
         float endTime = Time.time + _dashTime;
         while (Time.time < endTime)
         {
@@ -228,6 +230,8 @@ public class PlayerMove : MonoBehaviour
         }
         
         yield return new WaitForSeconds(_dashCoolDown);
+
+        gameObject.layer = _playerLayer;
 
         ChangeStateAfterMove();
         _isMove = false;
