@@ -48,16 +48,16 @@ public class PlayerMove : MonoBehaviour
     private float _auxiliary;
     private float _auxiliaryTimer = 0f;
     private float _gaurd;
-    private float _gravityTimer = 0f;
 
     [SerializeField] private GameObject chinemachineTarget;
     private float _chinemachineTargetYaw;
     private float _chinemachineTargetPitch;
 
+    [SerializeField] private GameObject FourthAttackEffect; 
+
     private float _topClamp = 70.0f;
     private float _bottomClamp = -30.0f;
 
-    private int _jumpCount = 0;
     private int _attackCount = 0;
 
     private bool _isMove = false;
@@ -102,19 +102,13 @@ public class PlayerMove : MonoBehaviour
 
         if (!cc.isGrounded)
         {
-            _gravityTimer += Time.deltaTime;
-            if (_gravityTimer > 2.0f)
-            {
-                dir.y += Physics.gravity.y * Time.deltaTime;
-                cc.Move(dir * Time.deltaTime);
-                _gravityTimer = 0;
-            }
+            dir.y += Physics.gravity.y * Time.deltaTime;
+            cc.Move(dir * Time.deltaTime);
         }
         else
         {
             dir.y = Physics.gravity.y;
             cc.Move(dir * Time.deltaTime);
-            _jumpCount = 0;
             _isJump = false;
         }
         Debug.DrawRay(transform.position, Vector3.down, Color.red, 0.1f);
@@ -191,7 +185,7 @@ public class PlayerMove : MonoBehaviour
         if (_isDie) return;
         if(_isAttack) return;
         if (_isGaurd) return;
-        if (_jumpCount >= 2) return;
+        if (_isJump) return;
 
         if (context.started)
         {
@@ -200,7 +194,6 @@ public class PlayerMove : MonoBehaviour
     }
     private void JumpPlayer()
     {
-        _jumpCount++;
         StartCoroutine(CoJumpPlayer());
     }
     private IEnumerator CoJumpPlayer()
@@ -332,6 +325,15 @@ public class PlayerMove : MonoBehaviour
         else
             _isInput = true;
         return _isInput;
+    }
+
+    private void ActiveFourthAttackEffect()
+    {
+        FourthAttackEffect.SetActive(true);
+    }
+    private void UnActiveFourthAttackEffect()
+    {
+        FourthAttackEffect.SetActive(false);
     }
 
     private void OnApplicationFocus(bool focus)
