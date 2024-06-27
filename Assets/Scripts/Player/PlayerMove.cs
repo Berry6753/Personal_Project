@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     {
         IDLE,
         RUN,
-        //JUMP,
+        JUMP,
         DASH,
         ATTACK,
         GAURD,
@@ -25,7 +24,6 @@ public class PlayerMove : MonoBehaviour
     private StateMachine _stateMachine;
 
     private readonly int hashRun = Animator.StringToHash("isRun");
-    //private readonly int hashJump = Animator.StringToHash("isJump");
     private readonly int hashDash = Animator.StringToHash("isDash");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashGaurd = Animator.StringToHash("isGaurd");
@@ -36,19 +34,21 @@ public class PlayerMove : MonoBehaviour
     private Vector3 inputMoveMent = Vector3.zero;
     private Vector2 inputRotation = Vector2.zero;
 
-    [SerializeField] private LayerMask _playerLayer;
-    [SerializeField] private LayerMask _dashLayer;
+    [SerializeField] private int _playerLayer;
+    [SerializeField] private int _dashLayer;
 
     private float _moveSpeed = 5.0f;
     private float _rotSpeed = 10.0f;
     private float _dashSpeed = 20.0f;
-    private float _jumpSpeed;
+    private float _jumpSpeed = 20.0f;
 
+    private float _jumpTime = 2.0f;
     private float _dashTime = 0.5f;
     private float _dashCoolDown = 0.2f;
     private float _auxiliary;
     private float _auxiliaryTimer = 0f;
     private float _gaurd;
+    private float _gravityTimer = 0f;
 
     [SerializeField] private GameObject chinemachineTarget;
     private float _chinemachineTargetYaw;
@@ -57,7 +57,7 @@ public class PlayerMove : MonoBehaviour
     private float _topClamp = 70.0f;
     private float _bottomClamp = -30.0f;
 
-    //private int _jumpCount;
+    private int _jumpCount = 0;
     private int _attackCount = 0;
 
     private bool _isMove = false;
@@ -79,7 +79,7 @@ public class PlayerMove : MonoBehaviour
 
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.RUN, new RunState(this));
-        //_stateMachine.AddState(State.JUMP, new JumpState(this));
+        _stateMachine.AddState(State.JUMP, new JumpState(this));
         _stateMachine.AddState(State.DASH, new DashState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
@@ -102,11 +102,21 @@ public class PlayerMove : MonoBehaviour
 
         if (!cc.isGrounded)
         {
-            dir.y += Physics.gravity.y * Time.deltaTime;
-            cc.Move(dir * Time.deltaTime);
+            _gravityTimer += Time.deltaTime;
+            if (_gravityTimer > 2.0f)
+            {
+                dir.y += Physics.gravity.y * Time.deltaTime;
+                cc.Move(dir * Time.deltaTime);
+                _gravityTimer = 0;
+            }
         }
         else
-            dir.y = 0;
+        {
+            dir.y = Physics.gravity.y;
+            cc.Move(dir * Time.deltaTime);
+            _jumpCount = 0;
+            _isJump = false;
+        }
         Debug.DrawRay(transform.position, Vector3.down, Color.red, 0.1f);
     }
 
@@ -119,6 +129,7 @@ public class PlayerMove : MonoBehaviour
         if (_isMove) return;
         if(_isAttack) return;
         if(_isGaurd) return;
+        if(_isJump) return;
 
         if (inputMoveMent != Vector3.zero)
         {
@@ -149,16 +160,6 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.Lerp(playerRotation, transform.rotation, _rotSpeed * Time.deltaTime);
         }
 
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f))
-        //{
-        //    Vector3 slopeMovement = Vector3.ProjectOnPlane(moveDir, hit.normal);
-        //    cc.Move(slopeMovement);
-        //}
-        //else
-        //{
-        //    cc.Move(moveDir);
-        //}
         cc.Move(moveDir);
     }
 
@@ -183,13 +184,40 @@ public class PlayerMove : MonoBehaviour
         if (angle < -360f) angle += 360f;
         if (angle > 360f) angle -= 360f;
         return Mathf.Clamp(angle, min, max);
-
     }
 
-    //public void OnJump_Player(InputAction.CallbackContext context)
-    //{ 
-    //    //todo
-    //}
+    public void OnJump_Player(InputAction.CallbackContext context)
+    {
+        if (_isDie) return;
+        if(_isAttack) return;
+        if (_isGaurd) return;
+        if (_jumpCount >= 2) return;
+
+        if (context.started)
+        {
+            _stateMachine.ChangeState(State.JUMP);
+        }
+    }
+    private void JumpPlayer()
+    {
+        _jumpCount++;
+        StartCoroutine(CoJumpPlayer());
+    }
+    private IEnumerator CoJumpPlayer()
+    {
+        _isJump = true;
+
+        float endTime = Time.time + _jumpTime;
+        Vector3 moveDir = _mainCamera.transform.forward * inputMoveMent.z + _mainCamera.transform.right * inputMoveMent.x;
+        moveDir.y = 0;
+        moveDir.Normalize();
+        while (Time.time < endTime)
+        {           
+            Vector3 jumpDir = (transform.up * _jumpSpeed + moveDir * _moveSpeed) * Time.deltaTime;
+            cc.Move(jumpDir);
+            yield return null;
+        }
+    }
 
     public void OnDash_Player(InputAction.CallbackContext context)
     {
@@ -348,15 +376,25 @@ public class PlayerMove : MonoBehaviour
             player.MovePlayer();
         }
     }
-    //private class JumpState : BasePlayerState
-    //{ 
-    //    public JumpState(PlayerMove player) : base(player) { }
-    //    public override void Enter()
-    //    {
-    //        player.anim.SetBool(player.hashJump, true);
-    //        //todo
-    //    }
-    //}
+    private class JumpState : BasePlayerState
+    {
+        public JumpState(PlayerMove player) : base(player) { }
+        float jump;
+        public override void Enter()
+        {
+            player.JumpPlayer();
+            jump = Time.time + player._jumpTime;
+
+            player.state = State.JUMP;
+        }
+        public override void Update()
+        {
+            if (player.cc.isGrounded && Time.time > jump)
+            {
+                player.ChangeStateAfterMove();
+            }
+        }
+    }
     private class DashState : BasePlayerState
     {
         public DashState(PlayerMove player) : base(player) { }
