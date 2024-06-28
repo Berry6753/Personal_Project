@@ -53,7 +53,8 @@ public class PlayerMove : MonoBehaviour
     private float _chinemachineTargetYaw;
     private float _chinemachineTargetPitch;
 
-    [SerializeField] private GameObject FourthAttackEffect; 
+    [SerializeField] private BoxCollider _attackCollider;
+    [SerializeField] private GameObject _fourthAttackEffect; 
 
     private float _topClamp = 70.0f;
     private float _bottomClamp = -30.0f;
@@ -123,7 +124,7 @@ public class PlayerMove : MonoBehaviour
         if (_isMove) return;
         if(_isAttack) return;
         if(_isGaurd) return;
-        if(_isJump) return;
+        //if(_isJump) return;
 
         if (inputMoveMent != Vector3.zero)
         {
@@ -327,13 +328,21 @@ public class PlayerMove : MonoBehaviour
         return _isInput;
     }
 
+    private void EnableAttackCollider()
+    { 
+        _attackCollider.enabled = true;
+    }
+    private void DisAbleAttackCollider()
+    {
+        _attackCollider.enabled = false;
+    }
     private void ActiveFourthAttackEffect()
     {
-        FourthAttackEffect.SetActive(true);
+        _fourthAttackEffect.SetActive(true);
     }
     private void UnActiveFourthAttackEffect()
     {
-        FourthAttackEffect.SetActive(false);
+        _fourthAttackEffect.SetActive(false);
     }
 
     private void OnApplicationFocus(bool focus)
