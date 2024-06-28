@@ -18,11 +18,12 @@ public class FordController : MonoBehaviour
 
     private Transform fordTr;
     private Transform playerTr;
+    [HideInInspector]
     public List<GameObject> enemyList = new List<GameObject>();
 
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _shootPoint;
-    [SerializeField] private GameObject _bulletSpawnObject;
+    private GameObject _bulletSpawnObject;
 
     private float _followDistance = 0.1f;
     private float _lerpSpeed = 0.8f;
@@ -35,6 +36,7 @@ public class FordController : MonoBehaviour
         fordTr = GetComponent<Transform>();
 
         playerTr = GameObject.FindGameObjectWithTag("PlayerFordPos").transform;
+        _bulletSpawnObject = GameObject.FindGameObjectWithTag("Spawner");
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
         
