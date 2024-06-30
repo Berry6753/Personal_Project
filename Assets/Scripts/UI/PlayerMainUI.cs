@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMainUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Slider Slider_Hp;
+    [SerializeField] private Slider Slider_Exp;
+    [SerializeField] private TMP_Text Text_Level;
+
+    private void Start()
     {
-        
+        Slider_Hp.value = GameManager.Instance.CurruntHp();
+        Slider_Exp.value = GameManager.Instance.CurruntExp();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        LerpHp();
+        LerpExp();
+    }
+
+    private void LerpHp()
+    {
+        Slider_Hp.value = Mathf.Lerp(Slider_Hp.value, GameManager.Instance.CurruntHp(), Time.deltaTime * 10);
+    }
+    private void LerpExp()
+    {
+        Slider_Exp.value = Mathf.Lerp(Slider_Exp.value, GameManager.Instance.CurruntExp(), Time.deltaTime * 10);
     }
 }
