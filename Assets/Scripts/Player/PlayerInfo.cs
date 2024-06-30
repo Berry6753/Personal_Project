@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    private float _maxHp;
-    private float _hp;
-    private float _maxExp;
+    public float _maxHp;
+    public float _hp;
+    public float _maxExp;
     private float _minExp;
-    private float _exp;
-    private float _damage;
+    public float _exp;
+    public float _damage;
 
     private int _level;
     private int _levelPoint;
