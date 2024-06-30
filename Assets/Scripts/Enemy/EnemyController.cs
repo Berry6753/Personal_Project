@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     private StateMachine _stateMachine;
 
     private Rigidbody rb;
-    private NavMeshAgent agent;
+    private NavMeshAgent nav;
     private Animator anim;
 
     private Transform _playerTr;
@@ -30,10 +30,14 @@ public class EnemyController : MonoBehaviour
 
     private bool isDie = false;
 
+    private readonly int hashTrace = Animator.StringToHash("Trace");
+    private readonly int hashAttack = Animator.StringToHash("Attack");
+    private readonly int hashDie = Animator.StringToHash("Die");
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
@@ -100,7 +104,10 @@ public class EnemyController : MonoBehaviour
         public IdleState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
         {
-            
+            enemy.nav.isStopped = true;
+            enemy.anim.SetBool(enemy.hashTrace, false);
+
+            enemy.state = State.IDLE;
         }
     }
     public class TraceState : BaseEnemyState
@@ -108,7 +115,10 @@ public class EnemyController : MonoBehaviour
         public TraceState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.nav.isStopped = false;
+            enemy.anim.SetBool(enemy.hashTrace, true);
 
+            enemy.state = State.TRACE;
         }
     }
     public class AttackState : BaseEnemyState
@@ -116,7 +126,10 @@ public class EnemyController : MonoBehaviour
         public AttackState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
         {
-
+            enemy.anim.SetBool(enemy.hashAttack, true);
+            enemy.nav.isStopped = true;
+            
+            enemy.state = State.ATTACK;
         }
     }
     public class DieState : BaseEnemyState
@@ -124,7 +137,9 @@ public class EnemyController : MonoBehaviour
         public DieState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
         {
-           
+            enemy.anim.SetTrigger(enemy.hashDie);
+
+            enemy.state = State.DIE;
         }
     }
 }
