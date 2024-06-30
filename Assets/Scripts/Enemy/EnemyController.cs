@@ -65,13 +65,17 @@ public class EnemyController : MonoBehaviour
 
             float distance = Vector3.Distance(transform.position, _playerTr.position);
 
-            if (distance >= _recognitionDistance)
+            if (distance <= _attackRange)
+            { 
+                _stateMachine.ChangeState(State.ATTACK);
+            }
+            else if (distance <= _sensingRange)
             {
-                _stateMachine.ChangeState(State.IDLE);
+                _stateMachine.ChangeState(State.TRACE);
             }
             else
             {
-                _stateMachine.ChangeState(State.TRACE);
+                _stateMachine.ChangeState(State.IDLE);
             }
         }
     }
