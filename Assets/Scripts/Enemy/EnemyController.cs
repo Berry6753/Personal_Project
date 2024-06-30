@@ -61,6 +61,8 @@ public class EnemyController : MonoBehaviour
             if (_hp <= 0)
             { 
                 _stateMachine.ChangeState(State.DIE);
+                Die();
+                yield break;
             }
 
             float distance = Vector3.Distance(transform.position, _playerTr.position);
@@ -78,6 +80,11 @@ public class EnemyController : MonoBehaviour
                 _stateMachine.ChangeState(State.IDLE);
             }
         }
+    }
+
+    private void Die()
+    { 
+        
     }
 
     public class BaseEnemyState : BaseState
