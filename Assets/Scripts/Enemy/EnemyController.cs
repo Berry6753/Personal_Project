@@ -14,17 +14,54 @@ public class EnemyController : MonoBehaviour
     public State state = State.IDLE;
     private StateMachine _stateMachine;
 
+    private Transform _playerTr;
+
+    private float _hp;
+    private float _recognitionDistance;
+    private float _attackDistance;
+
+
     private void Awake()
     {
+        _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.TRACE, new TraceState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
+        _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
     }
 
+    private void Start()
+    {
+        StartCoroutine(CoEnemyMove());
+    }
 
+    private IEnumerator CoEnemyMove()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if (_hp <= 0)
+            { 
+                _stateMachine.ChangeState(State.DIE);
+            }
+
+            float distance = Vector3.Distance(transform.position, _playerTr.position);
+
+            if (distance >= _recognitionDistance)
+            {
+                _stateMachine.ChangeState(State.IDLE);
+            }
+            else
+            {
+                _stateMachine.ChangeState(State.TRACE);
+            }
+        }
+    }
 
     public class BaseEnemyState : BaseState
     {
