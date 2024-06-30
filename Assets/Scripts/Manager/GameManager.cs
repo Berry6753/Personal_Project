@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [Header("플레이어 정보")]
+    [SerializeField] private PlayerInfo playerInfo;
+    public PlayerInfo PlayerInfo { get { return playerInfo; } }
+
+    [Header("플레이어 움직임 정보")]
     [SerializeField] private PlayerMove player;
     public PlayerMove Player { get { return player; } }
+
+    [Header("포드 정보")]
     [SerializeField] private FordController ford;
     public FordController Ford { get { return ford; } }
 
