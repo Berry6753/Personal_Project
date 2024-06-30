@@ -27,6 +27,8 @@ public class EnemyController : MonoBehaviour
     private float _sensingRange;
     private float _attackRange;
     private float _dropExp;
+    private float _minExp;
+    private float _maxExp;
 
     private bool isDie = false;
 
@@ -88,7 +90,12 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     { 
-        
+        isDie = true;
+        DropExp();
+    }
+    private void DropExp()
+    { 
+        float RandomExp = Random.Range(_minExp, _maxExp);
     }
 
     public class BaseEnemyState : BaseState
@@ -138,6 +145,7 @@ public class EnemyController : MonoBehaviour
         public override void Enter()
         {
             enemy.anim.SetTrigger(enemy.hashDie);
+            enemy.Die();
 
             enemy.state = State.DIE;
         }
