@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -14,15 +15,27 @@ public class EnemyController : MonoBehaviour
     public State state = State.IDLE;
     private StateMachine _stateMachine;
 
+    private Rigidbody rb;
+    private NavMeshAgent agent;
+    private Animator anim;
+
     private Transform _playerTr;
 
+    private float _maxHp;
     private float _hp;
-    private float _recognitionDistance;
-    private float _attackDistance;
+    private float _damage;
+    private float _sensingRange;
+    private float _attackRange;
+    private float _dropExp;
 
+    private bool isDie = false;
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
