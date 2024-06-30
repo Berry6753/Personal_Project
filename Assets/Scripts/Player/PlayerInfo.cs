@@ -41,11 +41,11 @@ public class PlayerInfo : MonoBehaviour
     {
         _maxExp *= 1.2f;
     }
-    private void UpScaleHp()
+    public void UpScaleHp()
     {
         _maxHp += 20f;
     }
-    private void UpScaleDmg()
+    public void UpScaleDmg()
     {
         _damage += 20f;
     }
