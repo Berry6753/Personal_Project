@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour
     { 
         IDLE,
         TRACE,
-        ATTACK
+        ATTACK,
+        DIE
     }
     public State state = State.IDLE;
     private StateMachine _stateMachine;
@@ -55,6 +56,14 @@ public class EnemyController : MonoBehaviour
         public override void Enter()
         {
 
+        }
+    }
+    public class DieState : BaseEnemyState
+    {
+        public DieState(EnemyController enemy) : base(enemy) { }
+        public override void Enter()
+        {
+           
         }
     }
 }
