@@ -41,4 +41,13 @@ public class GameManager : Singleton<GameManager>
             isGameOnTime = true;
         }
     }
+
+    public float CurruntHp()
+    {
+        return playerInfo._hp / playerInfo._maxHp;
+    }
+    public float CurruntExp()
+    {
+        return playerInfo._exp / playerInfo._maxExp;
+    }
 }
