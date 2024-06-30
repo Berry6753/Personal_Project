@@ -49,10 +49,10 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CoEnemyMove());
+        StartCoroutine(CoEnemyState());
     }
 
-    private IEnumerator CoEnemyMove()
+    private IEnumerator CoEnemyState()
     {
         while (true)
         {
