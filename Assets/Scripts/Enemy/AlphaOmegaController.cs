@@ -115,7 +115,10 @@ public class AlphaOmegaController : MonoBehaviour
         public IdleState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
-            
+            ao.nav.isStopped = true;
+            ao.anim.SetBool(ao.hashTrace, false);
+
+            ao.state = State.IDLE;
         }
     }
     private class TraceState : BaseAOState
@@ -123,7 +126,10 @@ public class AlphaOmegaController : MonoBehaviour
         public TraceState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
+            ao.nav.isStopped = false;
+            ao.anim.SetBool(ao.hashTrace, true);
 
+            ao.state = State.TRACE;
         }
     }
     private class AttackState : BaseAOState
@@ -131,7 +137,10 @@ public class AlphaOmegaController : MonoBehaviour
         public AttackState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
-            
+            ao.nav.isStopped = true;
+            ao.anim.SetTrigger(ao.hashTrace);
+
+            ao.state = State.ATTACK;
         }
     }
     private class DieState : BaseAOState
@@ -141,6 +150,8 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.anim.SetTrigger(ao.hashDie);
             ao.Die();
+
+            ao.state = State.DIE;
         }
     }
 }
