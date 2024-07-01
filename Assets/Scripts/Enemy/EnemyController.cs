@@ -30,11 +30,13 @@ public class EnemyController : MonoBehaviour
     protected float _minExp;
     protected float _maxExp;
 
-    protected bool isDie = false;
+    protected bool isDead = false;
 
-    protected readonly int hashTrace = Animator.StringToHash("Trace");
-    protected readonly int hashAttack = Animator.StringToHash("Attack");
-    protected readonly int hashDie = Animator.StringToHash("Die");
+    protected readonly int hashCombat = Animator.StringToHash("isCombat");
+    protected readonly int hashNonCombat = Animator.StringToHash("NonCombat");
+    protected readonly int hashAttack = Animator.StringToHash("isAttack");
+    protected readonly int hashAttackCount = Animator.StringToHash("Attack");
+    protected readonly int hashDie = Animator.StringToHash("isDie");
 
     protected void Awake()
     {
@@ -94,8 +96,8 @@ public class EnemyController : MonoBehaviour
     }
 
     protected void Die()
-    { 
-        isDie = true;
+    {
+        isDead = true;
         DropExp();
     }
     protected void DropExp()
@@ -118,7 +120,7 @@ public class EnemyController : MonoBehaviour
         public override void Enter()
         {
             enemy.nav.isStopped = true;
-            enemy.anim.SetBool(enemy.hashTrace, false);
+            enemy.anim.SetBool(enemy.hashCombat, false);
 
             enemy.state = State.IDLE;
         }
@@ -129,7 +131,7 @@ public class EnemyController : MonoBehaviour
         public override void Enter()
         {
             enemy.nav.isStopped = false;
-            enemy.anim.SetBool(enemy.hashTrace, true);
+            enemy.anim.SetBool(enemy.hashCombat, true);
 
             enemy.state = State.TRACE;
         }
