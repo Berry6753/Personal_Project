@@ -13,30 +13,30 @@ public class EnemyController : MonoBehaviour
         DIE
     }
     public State state = State.IDLE;
-    private StateMachine _stateMachine;
+    protected StateMachine _stateMachine;
 
-    private Rigidbody rb;
-    private NavMeshAgent nav;
-    private Animator anim;
+    protected Rigidbody rb;
+    protected NavMeshAgent nav;
+    protected Animator anim;
 
-    private Transform _playerTr;
+    protected Transform _playerTr;
 
-    private float _maxHp;
-    private float _hp;
-    private float _damage;
-    private float _sensingRange;
-    private float _attackRange;
-    private float _dropExp;
-    private float _minExp;
-    private float _maxExp;
+    protected float _maxHp;
+    protected float _hp;
+    protected float _damage;
+    protected float _sensingRange;
+    protected float _attackRange;
+    protected float _dropExp;
+    protected float _minExp;
+    protected float _maxExp;
 
-    private bool isDie = false;
+    protected bool isDie = false;
 
-    private readonly int hashTrace = Animator.StringToHash("Trace");
-    private readonly int hashAttack = Animator.StringToHash("Attack");
-    private readonly int hashDie = Animator.StringToHash("Die");
+    protected readonly int hashTrace = Animator.StringToHash("Trace");
+    protected readonly int hashAttack = Animator.StringToHash("Attack");
+    protected readonly int hashDie = Animator.StringToHash("Die");
 
-    private void Awake()
+    protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
         _stateMachine.InitState(State.IDLE);
     }
 
-    private void Start()
+    protected void Start()
     {
         StartCoroutine(CoEnemyState());
     }
@@ -88,14 +88,20 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Attack()
+    { 
+        
+    }
+
+    protected void Die()
     { 
         isDie = true;
         DropExp();
     }
-    private void DropExp()
+    protected void DropExp()
     { 
-        float RandomExp = Random.Range(_minExp, _maxExp);
+        _dropExp = Random.Range(_minExp, _maxExp);
+        GameManager.Instance.PlayerGetExp(_dropExp);
     }
 
     public class BaseEnemyState : BaseState
@@ -106,7 +112,7 @@ public class EnemyController : MonoBehaviour
             this.enemy = enemy;
         }
     }
-    public class IdleState : BaseEnemyState
+    protected class IdleState : BaseEnemyState
     {
         public IdleState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
@@ -117,7 +123,7 @@ public class EnemyController : MonoBehaviour
             enemy.state = State.IDLE;
         }
     }
-    public class TraceState : BaseEnemyState
+    protected class TraceState : BaseEnemyState
     { 
         public TraceState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
@@ -128,18 +134,19 @@ public class EnemyController : MonoBehaviour
             enemy.state = State.TRACE;
         }
     }
-    public class AttackState : BaseEnemyState
+    protected class AttackState : BaseEnemyState
     {
         public AttackState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
         {
             enemy.anim.SetBool(enemy.hashAttack, true);
+            enemy.Attack();
             enemy.nav.isStopped = true;
             
             enemy.state = State.ATTACK;
         }
     }
-    public class DieState : BaseEnemyState
+    protected class DieState : BaseEnemyState
     {
         public DieState(EnemyController enemy) : base(enemy) { }
         public override void Enter()
