@@ -11,12 +11,12 @@ public class PlayerInfo : MonoBehaviour
     public float _exp;
     public float _damage;
 
-    private int _level;
+    public int _level;
     private int _levelPoint;
 
     private void Awake()
     {
-        _hp = _maxExp;
+        _hp = _maxHp;
         _exp = _minExp;
     }
 
@@ -48,5 +48,9 @@ public class PlayerInfo : MonoBehaviour
     public void UpScaleDmg()
     {
         _damage += 20f;
+    }
+    public void GetExp(float get)
+    {
+        _exp += get;
     }
 }
