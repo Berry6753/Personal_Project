@@ -112,14 +112,12 @@ public class EnemyController : MonoBehaviour
         if (_nonCombatMoveThink == 0)
         {
             nav.isStopped = true;
-            anim.SetInteger(hashNonCombat, 0);
             Invoke("NonCombatMove", 2.0f);
         }
         else
         { 
             nav.isStopped = false;
             nav.SetDestination(_patrolTrList[_nonCombatMoveTr].position);
-            anim.SetInteger(hashNonCombat, 1);
             Invoke("NonCombatMove", 5.0f);
         }
     }
@@ -157,6 +155,13 @@ public class EnemyController : MonoBehaviour
             enemy.NonCombatMove();
 
             enemy.state = State.PATROL;
+        }
+        public override void Update()
+        {
+            if (enemy.nav.velocity == Vector3.zero)
+                enemy.anim.SetInteger(enemy.hashNonCombat, 0);
+            else
+                enemy.anim.SetInteger(enemy.hashNonCombat, 1);
         }
     }
     protected class TraceState : BaseEnemyState
