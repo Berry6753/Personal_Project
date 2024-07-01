@@ -57,6 +57,51 @@ public class AlphaOmegaController : MonoBehaviour
         _stateMachine.InitState(State.IDLE);
     }
 
+    private void Start()
+    {
+        
+    }
+
+    private IEnumerator CoAOState()
+    { 
+        while (true)
+        {
+            yield return new WaitForSeconds(0.3f);
+
+            if(_hp<=0)
+            {
+                _stateMachine.ChangeState(State.DIE);    
+                yield break;
+            }
+
+            float distance = Vector3.Distance(transform.position, _playerTr.position);
+
+            if (distance <= _attackRange)
+            { 
+                _stateMachine.ChangeState(State.ATTACK);
+            }
+            else if(distance <= _sensingRange)
+            {
+                _stateMachine.ChangeState(State.TRACE);
+            }
+            else
+            {
+                _stateMachine.ChangeState(State.IDLE);
+            }
+        }
+    }
+
+    private void Die()
+    {
+        isDead = true;
+        DropExp();
+    }
+    private void DropExp()
+    {
+        _dropExp = Random.Range(_minExp, _maxExp);
+        GameManager.Instance.PlayerGetExp(_dropExp);
+    }
+
     public class BaseAOState : BaseState
     {
         protected AlphaOmegaController ao;
@@ -94,7 +139,8 @@ public class AlphaOmegaController : MonoBehaviour
         public DieState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
-            
+            ao.anim.SetTrigger(ao.hashDie);
+            ao.Die();
         }
     }
 }
