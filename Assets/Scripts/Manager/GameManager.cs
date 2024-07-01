@@ -50,4 +50,13 @@ public class GameManager : Singleton<GameManager>
     {
         return playerInfo._exp / playerInfo._maxExp;
     }
+    public int CurrentLevel()
+    {
+        return playerInfo._level;
+    }
+
+    public void PlayerGetExp(float get)
+    {
+        playerInfo.GetExp(get);
+    }
 }
