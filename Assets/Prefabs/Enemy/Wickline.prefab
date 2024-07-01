@@ -2400,7 +2400,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -2423,13 +2423,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   _patrolTrList: []
+  _name: 
   _maxHp: 100
   _hp: 100
   _damage: 0
-  _sensingRange: 0
-  _attackRange: 0
+  _sensingRange: 20
+  _attackRange: 3
   _minExp: 0
   _maxExp: 0
+  _nonCombatMoveTr: 0
+  _onCombatMove: 0
+  _onAttackNum: 0
+  isInvoked: 0
 --- !u!1 &4289332631749852795
 GameObject:
   m_ObjectHideFlags: 0
