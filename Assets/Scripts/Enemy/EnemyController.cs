@@ -93,6 +93,8 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
+                if (state == State.PATROL) yield break;
+
                 _stateMachine.ChangeState(State.PATROL);
             }
         }
