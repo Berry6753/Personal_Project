@@ -20,6 +20,7 @@ public class PlayerMainUI : MonoBehaviour
     {
         LerpHp();
         LerpExp();
+        LevelText();
     }
 
     private void LerpHp()
@@ -29,5 +30,9 @@ public class PlayerMainUI : MonoBehaviour
     private void LerpExp()
     {
         Slider_Exp.value = Mathf.Lerp(Slider_Exp.value, GameManager.Instance.CurruntExp(), Time.deltaTime * 10);
+    }
+    private void LevelText()
+    {
+        Text_Level.text = $"Lv : {GameManager.Instance.CurrentLevel()}";
     }
 }
