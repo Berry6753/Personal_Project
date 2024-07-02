@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _maxHp;
+    [SerializeField] private float _hp;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _maxExp;
+    [SerializeField] private float _minExp;
+    private float _dropExp;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
