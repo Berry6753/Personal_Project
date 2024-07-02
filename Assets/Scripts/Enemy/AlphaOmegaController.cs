@@ -33,6 +33,8 @@ public class AlphaOmegaController : MonoBehaviour
     [SerializeField] private float _minExp;
     private float _dropExp;
 
+    private int _onAttackNum;
+
     private bool isDead = false;
 
     private readonly int hashWalk = Animator.StringToHash("isWalk");
@@ -60,9 +62,8 @@ public class AlphaOmegaController : MonoBehaviour
 
     private void Start()
     {
-        
+        StartCoroutine(CoAOState());
     }
-
     private IEnumerator CoAOState()
     { 
         while (true)
@@ -88,6 +89,28 @@ public class AlphaOmegaController : MonoBehaviour
 
                 _stateMachine.ChangeState(State.IDLE);
             }
+        }
+    }
+
+
+
+    public void OnAttackThink()
+    {
+        _onAttackNum = Random.Range(0, 5);
+    }
+    private void OnAttack()
+    { 
+        if(_onAttackNum <3)
+        {
+            anim.SetInteger(hashAttackNum, 0);
+        }
+        else if( _onAttackNum ==3)
+        {
+            anim.SetInteger(hashAttackNum, 1);
+        }
+        else
+        {
+            anim.SetInteger(hashAttackNum, 2);
         }
     }
 
@@ -159,6 +182,14 @@ public class AlphaOmegaController : MonoBehaviour
             ao.nav.isStopped = false;
             ao.anim.SetBool(ao.hashWalk, true);
         }
+        public override void Update()
+        {
+            
+        }
+        public override void Exit()
+        {
+            ao.nav.isStopped = true;
+        }
     }
     private class AttackState : BaseAOState
     {
@@ -167,6 +198,7 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.nav.isStopped = true;
             ao.anim.SetTrigger(ao.hashAttack);
+            ao.OnAttack();
 
             ao.state = State.ATTACK;
         }
