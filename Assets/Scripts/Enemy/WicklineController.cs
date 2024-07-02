@@ -188,6 +188,10 @@ public class WicklineController : MonoBehaviour
         }
     }
 
+    public void Hurt(float dmg)
+    {
+        _hp -= dmg;
+    }
     private void Die()
     {
         isDead = true;
