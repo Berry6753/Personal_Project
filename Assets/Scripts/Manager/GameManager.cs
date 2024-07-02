@@ -16,15 +16,27 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private FordController ford;
     public FordController Ford { get { return ford; } }
 
+    [Header("위클라인")]
+    [SerializeField] private WicklineController wickline;
+    public WicklineController Wickline { get { return wickline; } }
+
+    [Header("알파 오메가")]
+    [SerializeField] private AlphaOmegaController ao;
+    public AlphaOmegaController AO { get { return ao; } }
+
     private bool isGameOnTime = true;
 
     public void ChangeState()
     {
+        if (player == null) return;
+
         player.ChangeStateAfterMove();
     }
 
     public void ShootBullet()
     {
+        if( ford == null) return;
+
         ford.OnAttack();
     }
 
@@ -57,6 +69,16 @@ public class GameManager : Singleton<GameManager>
 
     public void PlayerGetExp(float get)
     {
+        if (playerInfo == null) return;
         playerInfo.GetExp(get);
+    }
+
+    public void WicklineAttack()
+    { 
+        wickline.OnAttackThink();
+    }
+    public void AOAttack()
+    {
+        ao.OnAttackThink();
     }
 }
