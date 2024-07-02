@@ -10,6 +10,7 @@ public class AlphaOmegaController : MonoBehaviour
     { 
         IDLE,
         TRACE,
+        COMEBACK,
         ATTACK,
         DIE
     }
@@ -27,7 +28,6 @@ public class AlphaOmegaController : MonoBehaviour
     [SerializeField] private float _maxHp;
     [SerializeField] private float _hp;
     [SerializeField] private float _damage;
-    [SerializeField] private float _sensingRange;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _maxExp;
     [SerializeField] private float _minExp;
@@ -35,7 +35,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     private bool isDead = false;
 
-    private readonly int hashTrace = Animator.StringToHash("isTrace");
+    private readonly int hashWalk = Animator.StringToHash("isWalk");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
     private readonly int hashAttackNum = Animator.StringToHash("Attack");
     private readonly int hashDie = Animator.StringToHash("isDie");
@@ -52,6 +52,7 @@ public class AlphaOmegaController : MonoBehaviour
 
         _stateMachine.AddState(State.IDLE, new IdleState(this));
         _stateMachine.AddState(State.TRACE, new TraceState(this));
+        _stateMachine.AddState(State.COMEBACK, new ComebackState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
@@ -80,12 +81,11 @@ public class AlphaOmegaController : MonoBehaviour
             { 
                 _stateMachine.ChangeState(State.ATTACK);
             }
-            else if(distance <= _sensingRange)
-            {
-                _stateMachine.ChangeState(State.TRACE);
-            }
             else
             {
+                if (state == State.TRACE) continue;
+                if (state == State.COMEBACK) continue;
+
                 _stateMachine.ChangeState(State.IDLE);
             }
         }
@@ -102,6 +102,17 @@ public class AlphaOmegaController : MonoBehaviour
         GameManager.Instance.PlayerGetExp(_dropExp);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            _stateMachine.ChangeState(State.TRACE);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+            _stateMachine.ChangeState(State.COMEBACK);
+    }
+
     public class BaseAOState : BaseState
     {
         protected AlphaOmegaController ao;
@@ -116,7 +127,7 @@ public class AlphaOmegaController : MonoBehaviour
         public override void Enter()
         {
             ao.nav.isStopped = true;
-            ao.anim.SetBool(ao.hashTrace, false);
+            ao.anim.SetBool(ao.hashWalk, false);
 
             ao.state = State.IDLE;
         }
@@ -127,9 +138,26 @@ public class AlphaOmegaController : MonoBehaviour
         public override void Enter()
         {
             ao.nav.isStopped = false;
-            ao.anim.SetBool(ao.hashTrace, true);
+            ao.anim.SetBool(ao.hashWalk, true);
 
             ao.state = State.TRACE;
+        }
+        public override void Update()
+        {
+            ao.nav.SetDestination(ao._playerTr.position);
+        }
+        public override void Exit()
+        {
+            ao.nav.isStopped = true;
+        }
+    }
+    private class ComebackState : BaseAOState
+    { 
+        public ComebackState(AlphaOmegaController ao) : base(ao) { }
+        public override void Enter()
+        {
+            ao.nav.isStopped = false;
+            ao.anim.SetBool(ao.hashWalk, true);
         }
     }
     private class AttackState : BaseAOState
@@ -138,7 +166,7 @@ public class AlphaOmegaController : MonoBehaviour
         public override void Enter()
         {
             ao.nav.isStopped = true;
-            ao.anim.SetTrigger(ao.hashTrace);
+            ao.anim.SetTrigger(ao.hashAttack);
 
             ao.state = State.ATTACK;
         }
