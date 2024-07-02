@@ -81,4 +81,17 @@ public class GameManager : Singleton<GameManager>
     {
         ao.OnAttackThink();
     }
+
+    public void PlayerHurt(float dmg)
+    {
+        playerInfo.Hurt(dmg);
+    }
+    public void WicklineHurt(float dmg)
+    {
+        wickline.Hurt(dmg);
+    }
+    public void AOHurt(float dmg)
+    {
+        ao.Hurt(dmg);
+    }
 }
