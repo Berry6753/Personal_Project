@@ -22,15 +22,21 @@ public class WicklineController : MonoBehaviour
     private Transform _playerTr;
     [SerializeField] private List<Transform> _patrolTrList;
 
+    private Vector3 _playerLookAt;
+
     [SerializeField] private string _name;
     [SerializeField] private float _maxHp;
     [SerializeField] private float _hp;
     [SerializeField] private float _damage;
     [SerializeField] private float _sensingRange;
     [SerializeField] private float _attackRange;
-    private float _dropExp;
     [SerializeField] private float _minExp;
-    [SerializeField] private float _maxExp;
+    [SerializeField] private float _maxExp; 
+    private float _dropExp;
+    private float _defaultSpeed = 3.5f;
+    private float _runSpeed = 5.0f;
+    private float _dashSpeed = 7.0f;
+    private float _timer = 0f;
 
     [SerializeField] private int _nonCombatMoveTr;
     [SerializeField] private int _onCombatMove;
@@ -38,6 +44,7 @@ public class WicklineController : MonoBehaviour
 
     private bool isDead = false;
     [SerializeField] private bool isInvoked;
+    private bool isSkill = false;
 
     private readonly int hashCombat = Animator.StringToHash("isCombat");
     private readonly int hashNonCombat = Animator.StringToHash("NonCombat");
@@ -55,6 +62,8 @@ public class WicklineController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+
+        _playerLookAt = new Vector3(_playerTr.position.x, transform.position.y, _playerTr.position.z);
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
@@ -91,11 +100,13 @@ public class WicklineController : MonoBehaviour
             }
             else if (distance <= _sensingRange)
             {
+                if (state == State.TRACE) continue;
+
                 _stateMachine.ChangeState(State.TRACE);
             }
             else
             {
-                if (state == State.PATROL) yield break;
+                if (state == State.PATROL) continue;
 
                 _stateMachine.ChangeState(State.PATROL);
             }
@@ -119,36 +130,37 @@ public class WicklineController : MonoBehaviour
 
     private void OnCombatThink()
     {
-        _onCombatMove = Random.Range(0, 5);
+        _onCombatMove = Random.Range(0, 4);
     }
     private void OnCombatMove()
     {
+        OnCombatThink();
         if (_onCombatMove == 0)
         {
             anim.SetInteger(hashOnCombat, 0);
-        }
-        else if (_onCombatMove == 1)
-        {
-            OnSkill();
+            nav.speed = _defaultSpeed;
         }
         else
         {
             anim.SetInteger(hashOnCombat, 1);
+            nav.speed = _runSpeed;
         }
-
-        if (_onCombatMove == 1) return;
-
-        Invoke("OnCombatThink", 5.0f);
+        Invoke("OnCombatMove", 10.0f);      
     }
     private void OnSkill()
     {
+        isSkill = true;
+        CancelInvoke("OnCombatMove");
         anim.SetTrigger(hashSkill);
+        nav.speed = _dashSpeed;
     }
     private void OnBehind()
     {
+        isSkill = false;
         anim.SetTrigger(hashBehind);
-        transform.rotation = _playerTr.rotation;
         transform.position = _playerTr.position + Vector3.back * _attackRange;
+        transform.rotation = _playerTr.rotation;
+        //transform.LookAt(_playerLookAt);
     }
 
 
@@ -185,7 +197,9 @@ public class WicklineController : MonoBehaviour
         public PatrolState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.transform.LookAt(null);
             enemy.anim.SetBool(enemy.hashCombat, false);
+            enemy.nav.speed = enemy._defaultSpeed;
             enemy.isInvoked = false;
 
             enemy.state = State.PATROL;
@@ -213,22 +227,38 @@ public class WicklineController : MonoBehaviour
         public TraceState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.transform.LookAt(enemy._playerLookAt);
             enemy.nav.isStopped = false;
-            enemy.anim.SetBool(enemy.hashCombat, true);
-            enemy.nav.SetDestination(enemy._playerTr.position);
-            enemy.OnCombatThink();
+            enemy.anim.SetBool(enemy.hashCombat, true);           
+            enemy.OnCombatMove();
+            enemy._timer = 0;
 
             enemy.state = State.TRACE;
         }
         public override void Update()
         {
-            enemy.OnCombatMove();
+            enemy.nav.SetDestination(enemy._playerTr.position);
+
+            if (!enemy.isSkill)
+            {
+                enemy._timer += Time.deltaTime;
+            }
+
+            if (enemy._timer > 10.0f)
+            {
+                enemy.OnSkill();
+            }
 
             float distance = Vector3.Distance(enemy.transform.position, enemy._playerTr.position);
-            if (distance <= enemy._attackRange + 3 && enemy._onCombatMove == 1)
+            if (distance <= enemy._attackRange + 3 && enemy.isSkill)
             {
                 enemy.OnBehind();
+                enemy._timer = 0;
             }
+        }
+        public override void Exit()
+        {
+            enemy.nav.isStopped = true;
         }
     }
     private class AttackState : BaseEnemyState
@@ -236,11 +266,17 @@ public class WicklineController : MonoBehaviour
         public AttackState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.transform.LookAt(enemy._playerLookAt);
+            enemy.anim.SetBool(enemy.hashCombat, false);
             enemy.anim.SetTrigger(enemy.hashAttack);
             enemy.Attack();
             enemy.nav.isStopped = true;
             
             enemy.state = State.ATTACK;
+        }
+        public override void Exit()
+        {
+            enemy.anim.ResetTrigger(enemy.hashAttack);
         }
     }
     private class DieState : BaseEnemyState
@@ -248,6 +284,7 @@ public class WicklineController : MonoBehaviour
         public DieState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.transform.LookAt(null);
             enemy.anim.SetTrigger(enemy.hashDie);
             enemy.Die();
 
