@@ -184,7 +184,7 @@ public class AlphaOmegaController : MonoBehaviour
         }
         public override void Update()
         {
-            
+            ao.nav.SetDestination(ao._playerTr.position);
         }
         public override void Exit()
         {
