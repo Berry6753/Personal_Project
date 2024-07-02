@@ -164,13 +164,28 @@ public class WicklineController : MonoBehaviour
     }
 
 
-    private void OnAttackThink()
+    public void OnAttackThink()
     { 
-        
+        _onAttackNum = Random.Range(0, 10);
     }
     private void Attack()
     { 
-        
+        if (_onAttackNum < 4)
+        {
+            anim.SetInteger(hashAttackNumber, 0);
+        }
+        else if (_onAttackNum < 8)
+        {
+            anim.SetInteger(hashAttackNumber, 1);
+        }
+        else if (_onAttackNum == 9)
+        {
+            anim.SetInteger(hashAttackNumber, 2);
+        }
+        else
+        {
+            anim.SetInteger(hashAttackNumber, 3);
+        }
     }
 
     private void Die()
@@ -266,7 +281,7 @@ public class WicklineController : MonoBehaviour
         public AttackState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
-            enemy.transform.LookAt(enemy._playerLookAt);
+            //enemy.transform.LookAt(enemy._playerLookAt);
             enemy.anim.SetBool(enemy.hashCombat, false);
             enemy.anim.SetTrigger(enemy.hashAttack);
             enemy.Attack();
