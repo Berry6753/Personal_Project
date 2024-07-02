@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
+    public Action<PlayerInfo> onDie;
+
     public float _maxHp;
     public float _hp;
     public float _maxExp;
@@ -26,6 +29,10 @@ public class PlayerInfo : MonoBehaviour
         {
             LevelUp();
             UpScaleExp();
+        }
+        if (_hp <= 0)
+        {
+
         }
     }
 
@@ -52,5 +59,9 @@ public class PlayerInfo : MonoBehaviour
     public void GetExp(float get)
     {
         _exp += get;
+    }
+    public void Hurt(float dmg)
+    {
+        _hp -= dmg;
     }
 }
