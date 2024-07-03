@@ -23,6 +23,8 @@ public class AlphaOmegaController : MonoBehaviour
 
     private Transform _playerTr;
 
+    [SerializeField] private List<SphereCollider> _attackColliders;
+
     [SerializeField] private string _name;
 
     [SerializeField] private float _maxHp;
@@ -96,6 +98,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     public void OnAttackThink()
     {
+        //_onAttackNum = 3;
         _onAttackNum = Random.Range(0, 5);
     }
     private void OnAttack()
@@ -110,7 +113,21 @@ public class AlphaOmegaController : MonoBehaviour
         }
         else
         {
-            anim.SetInteger(hashAttackNum, 2);
+            anim.SetInteger(hashAttackNum, 2); 
+        }
+    }
+    public void EnableAttackCollider()
+    {
+        foreach (var item in _attackColliders)
+        {
+            item.enabled = true;
+        }
+    }
+    public void DisableAttackCollider()
+    {
+        foreach (var item in _attackColliders)
+        {
+            item.enabled = false;
         }
     }
 
@@ -201,10 +218,15 @@ public class AlphaOmegaController : MonoBehaviour
         public override void Enter()
         {
             ao.nav.isStopped = true;
+            //ao.anim.SetBool(ao.hashWalk, false);
             ao.anim.SetTrigger(ao.hashAttack);
             ao.OnAttack();
 
             ao.state = State.ATTACK;
+        }
+        public override void Exit()
+        {
+            ao.anim.ResetTrigger(ao.hashAttack);
         }
     }
     private class DieState : BaseAOState
