@@ -24,6 +24,9 @@ public class WicklineController : MonoBehaviour
 
     private Vector3 _playerLookAt;
 
+    [SerializeField] private BoxCollider R_AttackCollider;
+    [SerializeField] private BoxCollider L_AttackCollider;
+
     [SerializeField] private string _name;
     [SerializeField] private float _maxHp;
     [SerializeField] private float _hp;
@@ -186,6 +189,22 @@ public class WicklineController : MonoBehaviour
         {
             anim.SetInteger(hashAttackNumber, 3);
         }
+    }
+    public void Enable_RightCollider()
+    { 
+        R_AttackCollider.enabled = true;
+    }
+    public void Disable_RightCollider()
+    {
+        R_AttackCollider.enabled = false;
+    }
+    public void Enable_LeftCollider()
+    {
+        L_AttackCollider.enabled = true;
+    }
+    public void Disable_LeftCollider()
+    {
+        L_AttackCollider.enabled = false;
     }
 
     public void Hurt(float dmg)
