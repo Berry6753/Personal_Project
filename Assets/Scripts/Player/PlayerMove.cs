@@ -54,7 +54,8 @@ public class PlayerMove : MonoBehaviour
     private float _chinemachineTargetPitch;
 
     [SerializeField] private BoxCollider _attackCollider;
-    [SerializeField] private GameObject _fourthAttackEffect; 
+    [SerializeField] private GameObject _fourthAttackEffect;
+    [SerializeField] private BoxCollider _fourthAttackCollider;
 
     private float _topClamp = 70.0f;
     private float _bottomClamp = -30.0f;
@@ -343,6 +344,14 @@ public class PlayerMove : MonoBehaviour
     private void UnActiveFourthAttackEffect()
     {
         _fourthAttackEffect.SetActive(false);
+    }
+    private void EnableFourthAttackCollider()
+    {
+        _fourthAttackCollider.enabled = true;
+    }
+    private void DisableFourthAttackCollider()
+    { 
+        _fourthAttackCollider.enabled = false;
     }
 
     private void OnApplicationFocus(bool focus)
