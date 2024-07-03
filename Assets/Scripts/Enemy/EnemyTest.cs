@@ -14,5 +14,9 @@ public class EnemyTest : MonoBehaviour
         {
             Debug.Log("B");
         }
+        if (other.gameObject.layer == LayerMask.NameToLayer("SkillAttack"))
+        {
+            Debug.Log("S");
+        }
     }
 }
