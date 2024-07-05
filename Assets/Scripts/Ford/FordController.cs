@@ -83,7 +83,7 @@ public class FordController : MonoBehaviour
     {
         if (enemyList.Count > 0 && _isAttack)
         {
-            transform.LookAt(enemyList[0].transform.position);
+            transform.LookAt(enemyList[0].transform.position + transform.up);
         }
         else
         {
