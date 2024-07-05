@@ -707,6 +707,7 @@ MonoBehaviour:
   state: 0
   _playerLayer: 6
   _dashLayer: 7
+  _gaurd: 0
   chinemachineTarget: {fileID: 1842092451752954750}
   _attackCollider: {fileID: 719012136266509397}
   _fourthAttackEffect: {fileID: 1842092452789635026}
@@ -909,9 +910,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff0d7ec429783b438835a14387ab23d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 0
-  _hp: 0
-  _maxExp: 0
+  _maxHp: 100
+  _hp: 100
+  _maxExp: 200
   _exp: 0
   _damage: 0
   _level: 0
