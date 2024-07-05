@@ -22,8 +22,10 @@ public class AlphaOmegaController : MonoBehaviour
     private NavMeshAgent nav;
 
     private Transform _playerTr;
+    private Vector3 _defaultPos;
 
-    [SerializeField] private List<SphereCollider> _attackColliders;
+    [SerializeField] private BoxCollider _rAttackCollider;
+    [SerializeField] private BoxCollider _lAttackCollider;
 
     [SerializeField] private string _name;
 
@@ -51,6 +53,7 @@ public class AlphaOmegaController : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
+        _defaultPos = transform.position;
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
@@ -60,6 +63,12 @@ public class AlphaOmegaController : MonoBehaviour
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
+    }
+
+    private void OnEnable()
+    {
+        _rAttackCollider.enabled = false;
+        _lAttackCollider.enabled = false;
     }
 
     private void Start()
@@ -81,19 +90,27 @@ public class AlphaOmegaController : MonoBehaviour
             float distance = Vector3.Distance(transform.position, _playerTr.position);
 
             if (distance <= _attackRange)
-            { 
+            {
                 _stateMachine.ChangeState(State.ATTACK);
             }
             else
             {
+                if (state == State.ATTACK)
+                {
+                    _stateMachine.ChangeState(State.TRACE);
+                }
+            }
+            float backDistance = Vector3.Distance(transform.position, _defaultPos);
+
+            if(backDistance <= 0.7f)
+            {
+                if (state == State.ATTACK) continue;
                 if (state == State.TRACE) continue;
-                if (state == State.COMEBACK) continue;
 
                 _stateMachine.ChangeState(State.IDLE);
             }
         }
     }
-
 
 
     public void OnAttackThink()
@@ -116,18 +133,54 @@ public class AlphaOmegaController : MonoBehaviour
             anim.SetInteger(hashAttackNum, 2); 
         }
     }
-    public void EnableAttackCollider()
+
+    private void RecoverHp()
     {
-        foreach (var item in _attackColliders)
+        if (_hp >= _maxHp)
         {
-            item.enabled = true;
+            _hp = _maxHp;
+            return;
+        }
+
+        _hp += Time.deltaTime;
+    }
+
+    public void ChangeMoveState(string state)
+    {
+        switch(state)
+        {
+            case "Trace":
+                _stateMachine.ChangeState(State.TRACE);
+                break;
+            case "ComeBack":
+                _stateMachine.ChangeState(State.COMEBACK);
+                break;
+        }
+        
+    }
+
+    public void EnableAttackCollider(string col)
+    {
+        switch (col)
+        {
+            case "R":
+                _rAttackCollider.enabled = true;
+                break;
+            case "L":
+                _lAttackCollider.enabled = true;
+                break;
         }
     }
-    public void DisableAttackCollider()
+    public void DisableAttackCollider(string col)
     {
-        foreach (var item in _attackColliders)
+        switch (col)
         {
-            item.enabled = false;
+            case "R":
+                _rAttackCollider.enabled = false;
+                break;
+            case "L":
+                _lAttackCollider.enabled = false;
+                break;
         }
     }
 
@@ -144,17 +197,6 @@ public class AlphaOmegaController : MonoBehaviour
     {
         _dropExp = Random.Range(_minExp, _maxExp);
         GameManager.Instance.PlayerGetExp(_dropExp);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-            _stateMachine.ChangeState(State.TRACE);
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-            _stateMachine.ChangeState(State.COMEBACK);
     }
 
     public class BaseAOState : BaseState
@@ -174,6 +216,10 @@ public class AlphaOmegaController : MonoBehaviour
             ao.anim.SetBool(ao.hashWalk, false);
 
             ao.state = State.IDLE;
+        }
+        public override void Update()
+        {
+            ao.RecoverHp();
         }
     }
     private class TraceState : BaseAOState
@@ -202,10 +248,14 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.nav.isStopped = false;
             ao.anim.SetBool(ao.hashWalk, true);
+
+            ao.state = State.COMEBACK;
         }
         public override void Update()
         {
-            ao.nav.SetDestination(ao._playerTr.position);
+            ao.nav.SetDestination(ao._defaultPos);
+
+            ao.RecoverHp();
         }
         public override void Exit()
         {
