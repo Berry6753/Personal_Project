@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     private GameObject _mainCamera;
 
     private StateMachine _stateMachine;
+    private PlayerInfo _playerInfo;
 
     private readonly int hashRun = Animator.StringToHash("isRun");
     private readonly int hashDash = Animator.StringToHash("isDash");
@@ -47,7 +48,7 @@ public class PlayerMove : MonoBehaviour
     private float _dashCoolDown = 0.2f;
     private float _auxiliary;
     private float _auxiliaryTimer = 0f;
-    private float _gaurd;
+    public float _gaurd;
 
     [SerializeField] private GameObject chinemachineTarget;
     private float _chinemachineTargetYaw;
@@ -87,7 +88,11 @@ public class PlayerMove : MonoBehaviour
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
         _stateMachine.InitState(State.IDLE);
+
+        _playerInfo = GetComponent<PlayerInfo>();
+        _playerInfo.onDie += OnPlayerDie;
     }
+
     private void Update()
     {
         if (_auxiliary != 0)
@@ -123,8 +128,8 @@ public class PlayerMove : MonoBehaviour
         inputMoveMent = context.ReadValue<Vector3>();
 
         if (_isMove) return;
-        if(_isAttack) return;
-        if(_isGaurd) return;
+        if (_isAttack) return;
+        if (_isGaurd) return;
         //if(_isJump) return;
 
         if (inputMoveMent != Vector3.zero)
@@ -160,12 +165,12 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void OnLook_Player(InputAction.CallbackContext context)
-    { 
+    {
         inputRotation = context.ReadValue<Vector2>();
     }
     private void LookPlayer()
-    { 
-        if(_mainCamera == null) return;
+    {
+        if (_mainCamera == null) return;
 
         _chinemachineTargetYaw += inputRotation.x;
         _chinemachineTargetPitch -= inputRotation.y;
@@ -185,7 +190,7 @@ public class PlayerMove : MonoBehaviour
     public void OnJump_Player(InputAction.CallbackContext context)
     {
         if (_isDie) return;
-        if(_isAttack) return;
+        if (_isAttack) return;
         if (_isGaurd) return;
         if (_isJump) return;
 
@@ -207,7 +212,7 @@ public class PlayerMove : MonoBehaviour
         moveDir.y = 0;
         moveDir.Normalize();
         while (Time.time < endTime)
-        {           
+        {
             Vector3 jumpDir = (transform.up * _jumpSpeed + moveDir * _moveSpeed) * Time.deltaTime;
             cc.Move(jumpDir);
             yield return null;
@@ -251,7 +256,7 @@ public class PlayerMove : MonoBehaviour
             cc.Move(transform.forward * _dashSpeed * Time.deltaTime);
             yield return null;
         }
-        
+
         yield return new WaitForSeconds(_dashCoolDown);
 
         gameObject.layer = _playerLayer;
@@ -265,6 +270,7 @@ public class PlayerMove : MonoBehaviour
         if (_isDie) return;
         if (_isMove) return;
         if (_isGaurd) return;
+        if (_isJump) return;
 
         if (context.started)
         {
@@ -299,17 +305,17 @@ public class PlayerMove : MonoBehaviour
     }
 
     public void OnInteraction_Player(InputAction.CallbackContext context)
-    { 
+    {
         if (_isDie) return;
 
         if (context.started)
-        { 
-        
+        {
+
         }
     }
 
     public void OnPause_Player(InputAction.CallbackContext context)
-    { 
+    {
         GameManager.Instance.PauseGame();
     }
 
@@ -327,6 +333,14 @@ public class PlayerMove : MonoBehaviour
         else
             _isInput = true;
         return _isInput;
+    }
+
+    private void OnPlayerDie(PlayerInfo playerInfo)
+    {
+        if (state == State.DIE) return;
+
+        _stateMachine.ChangeState(State.DIE);
+        _isDie = true;
     }
 
     private void EnableAttackCollider()
@@ -471,6 +485,7 @@ public class PlayerMove : MonoBehaviour
         public override void Enter()
         {
             player.anim.SetTrigger(player.hashDie);
+            Debug.Log("asdfasfesaf");
 
             player.state = State.DIE;
         }

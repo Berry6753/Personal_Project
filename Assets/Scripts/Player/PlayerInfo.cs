@@ -15,7 +15,7 @@ public class PlayerInfo : MonoBehaviour
     public float _damage;
 
     public int _level;
-    private int _levelPoint;
+    private int _skillPoint;
 
     private void Awake()
     {
@@ -32,14 +32,14 @@ public class PlayerInfo : MonoBehaviour
         }
         if (_hp <= 0)
         {
-
+            Die();
         }
     }
 
     private void LevelUp()
     {
         _level++;
-        _levelPoint += 5;
+        _skillPoint += 5;
         _hp = _maxHp;
         _exp = _minExp;
     }
@@ -50,10 +50,12 @@ public class PlayerInfo : MonoBehaviour
     }
     public void UpScaleHp()
     {
+        _skillPoint--;
         _maxHp += 20f;
     }
     public void UpScaleDmg()
     {
+        _skillPoint--;
         _damage += 20f;
     }
     public void GetExp(float get)
@@ -62,6 +64,12 @@ public class PlayerInfo : MonoBehaviour
     }
     public void Hurt(float dmg)
     {
+        if (GameManager.Instance.Player._gaurd != 0) return;
+
         _hp -= dmg;
+    }
+    private void Die()
+    {
+        onDie?.Invoke(this);
     }
 }
