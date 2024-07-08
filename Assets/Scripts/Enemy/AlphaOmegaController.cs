@@ -23,6 +23,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     private Transform _playerTr;
     private Vector3 _defaultPos;
+    private Vector3 _playerLookAt;
 
     [SerializeField] private BoxCollider _rAttackCollider;
     [SerializeField] private BoxCollider _lAttackCollider;
@@ -76,6 +77,11 @@ public class AlphaOmegaController : MonoBehaviour
     {
         StartCoroutine(CoAOState());
     }
+
+    private void Update()
+    {
+        _playerLookAt = new Vector3(_playerTr.position.x, transform.position.y, _playerTr.position.z);
+    }
     private IEnumerator CoAOState()
     { 
         while (!isDead)
@@ -92,6 +98,8 @@ public class AlphaOmegaController : MonoBehaviour
 
             if (distance <= _attackRange)
             {
+                if (isAttack) continue;
+
                 _stateMachine.ChangeState(State.ATTACK);
             }
             else
@@ -215,6 +223,7 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.nav.isStopped = true;
             ao.anim.SetBool(ao.hashWalk, false);
+            ao.transform.LookAt(null);
 
             ao.state = State.IDLE;
         }
@@ -230,6 +239,7 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.nav.isStopped = false;
             ao.anim.SetBool(ao.hashWalk, true);
+            ao.transform.LookAt(ao._playerLookAt);
 
             ao.state = State.TRACE;
         }
@@ -249,6 +259,7 @@ public class AlphaOmegaController : MonoBehaviour
         {
             ao.nav.isStopped = false;
             ao.anim.SetBool(ao.hashWalk, true);
+            ao.transform.LookAt(null);
 
             ao.state = State.COMEBACK;
         }
@@ -272,6 +283,7 @@ public class AlphaOmegaController : MonoBehaviour
             //ao.anim.SetBool(ao.hashWalk, false);
             ao.anim.SetTrigger(ao.hashAttack);
             ao.OnAttack();
+            ao.transform.LookAt(ao._playerLookAt);
             ao.isAttack = true;
 
             ao.state = State.ATTACK;
@@ -287,7 +299,9 @@ public class AlphaOmegaController : MonoBehaviour
         public DieState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
+            ao.nav.isStopped = true;
             ao.anim.SetTrigger(ao.hashDie);
+            ao.transform.LookAt(null);
             ao.Die();
 
             ao.state = State.DIE;
