@@ -22,7 +22,6 @@ public class FordController : MonoBehaviour
 
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private GameObject _shootPoint;
-    private GameObject _bulletSpawnObject;
 
     private float _followDistance = 0.1f;
     private float _lerpSpeed = 0.8f;
@@ -35,7 +34,6 @@ public class FordController : MonoBehaviour
         fordTr = GetComponent<Transform>();
 
         playerTr = GameObject.FindGameObjectWithTag("PlayerFordPos").transform;
-        _bulletSpawnObject = GameObject.FindGameObjectWithTag("Spawner");
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
         
@@ -118,7 +116,7 @@ public class FordController : MonoBehaviour
 
     private BulletMove CreateBullet()
     {   
-        BulletMove bullet = Instantiate(_bulletPrefab, _shootPoint.transform.position, _shootPoint.transform.rotation, _bulletSpawnObject.transform).GetComponent<BulletMove>();
+        BulletMove bullet = Instantiate(_bulletPrefab, _shootPoint.transform.position, _shootPoint.transform.rotation, _shootPoint.transform).GetComponent<BulletMove>();
         bullet.SetManagedPool(_bulletPool);
         return bullet;
     }
