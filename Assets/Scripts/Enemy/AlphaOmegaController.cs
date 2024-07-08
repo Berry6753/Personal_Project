@@ -40,6 +40,7 @@ public class AlphaOmegaController : MonoBehaviour
     private int _onAttackNum;
 
     private bool isDead = false;
+    public bool isAttack = false;
 
     private readonly int hashWalk = Animator.StringToHash("isWalk");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
@@ -95,7 +96,7 @@ public class AlphaOmegaController : MonoBehaviour
             }
             else
             {
-                if (state == State.ATTACK)
+                if (state == State.ATTACK && !isAttack)
                 {
                     _stateMachine.ChangeState(State.TRACE);
                 }
@@ -271,12 +272,14 @@ public class AlphaOmegaController : MonoBehaviour
             //ao.anim.SetBool(ao.hashWalk, false);
             ao.anim.SetTrigger(ao.hashAttack);
             ao.OnAttack();
+            ao.isAttack = true;
 
             ao.state = State.ATTACK;
         }
         public override void Exit()
         {
             ao.anim.ResetTrigger(ao.hashAttack);
+            ao.isAttack = false;
         }
     }
     private class DieState : BaseAOState
