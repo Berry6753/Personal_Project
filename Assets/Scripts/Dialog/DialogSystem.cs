@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,20 +6,27 @@ using UnityEngine.UI;
 
 public class DialogSystem : MonoBehaviour
 {
-    [SerializeField] private List<Speaker> speakerList;     // 대화에 참여하는 캐릭터들의 리스트
-    [SerializeField] private List<DialogDate> dialogList;   // 현재 분기의 대사 목록 리스트
+    [SerializeField] private List<Speaker> speakerList = new List<Speaker>();        // 대화에 참여하는 캐릭터들의 리스트
+    [SerializeField] private List<DialogDate> dialogList = new List<DialogDate>();   // 현재 분기의 대사 목록 리스트
     [SerializeField] private bool isAutoStart = true;       // 자동 시작 여부
     private bool isFirst = true;                            // 최초 1회만 호출하기 위한 변수
     private int currentDialogIndex = -1;                    // 현재 대사 순번
     private int currentSpeakerIndex = 0;                    // 현재 말을 하는 Speaker의 리스트 순번
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    speakerList = new List<Speaker>();
+    //    dialogList = new List<DialogDate>();
+    //}
+    private void OnEnable()
     {
-        speakerList = new List<Speaker>();
-        dialogList = new List<DialogDate>();
         SetUp();
+        StartCoroutine(CoDialog());
     }
-
+    private IEnumerator CoDialog()
+    {
+        yield return new WaitUntil(() => UpdateDialog());
+    }
     private void SetUp()
     {
         // 모든 대화 관련 오브젝트 비활성화
@@ -45,7 +53,7 @@ public class DialogSystem : MonoBehaviour
             isFirst = false;
         }
 
-        if( Input.GetKeyDown(KeyCode.Escape) )
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             // 대사가 남아있을 경우 다음 대사 진행
             if (dialogList.Count > currentDialogIndex + 1)
@@ -54,11 +62,11 @@ public class DialogSystem : MonoBehaviour
             }
             // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
             else
-            { 
+            {
                 // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
-                for(int i = 0;i < dialogList.Count;i++)
+                for (int i = 0; i < dialogList.Count; i++)
                 {
-                    SetActiveObjects(speakerList[i], false );
+                    SetActiveObjects(speakerList[i], false);
 
                     // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
                     speakerList[i].spriteRenderer.gameObject.SetActive(false);
@@ -112,7 +120,7 @@ public class DialogSystem : MonoBehaviour
 [System.Serializable]
 public struct Speaker
 { 
-    public SpriteRenderer spriteRenderer;       // 캐릭터 이미지
+    public Image spriteRenderer;                // 캐릭터 이미지
     public Image imageDialog;                   // 대화창 Image UI
     public TMP_Text textName;                   // 현재 대사중인 캐릭터 이름
     public TMP_Text textDialogue;               // 현재 대사 출력
