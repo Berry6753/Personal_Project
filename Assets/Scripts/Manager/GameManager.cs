@@ -20,9 +20,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private WicklineController wickline;
     public WicklineController Wickline { get { return wickline; } }
 
-    [Header("알파 오메가")]
-    [SerializeField] private AlphaOmegaController ao;
-    public AlphaOmegaController AO { get { return ao; } }
+    [Header("알파")]
+    [SerializeField] private AlphaOmegaController alpha;
+    public AlphaOmegaController Alpha { get { return alpha; } }
+
+    [Header("오메가")]
+    [SerializeField] private AlphaOmegaController omega;
+    public AlphaOmegaController Omega { get { return omega; } }
 
     private bool isGameOnTime = true;
 
@@ -77,9 +81,13 @@ public class GameManager : Singleton<GameManager>
     { 
         wickline.OnAttackThink();
     }
-    public void AOAttack()
+    public void AlphaAttack()
     {
-        ao.OnAttackThink();
+        alpha.OnAttackThink();
+    }
+    public void OmegaAttack()
+    {
+        omega.OnAttackThink();
     }
 
     public void PlayerHurt(float dmg)
@@ -90,8 +98,12 @@ public class GameManager : Singleton<GameManager>
     {
         wickline.Hurt(dmg);
     }
-    public void AOHurt(float dmg)
+    public void AlphaHurt(float dmg)
     {
-        ao.Hurt(dmg);
+        alpha.Hurt(dmg);
+    }
+    public void OmegaHurt(float dmg)
+    {
+        omega.Hurt(dmg);
     }
 }
