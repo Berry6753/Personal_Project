@@ -8,4 +8,8 @@ public class SelectWicklineAttack : StateMachineBehaviour
     {
         GameManager.Instance.WicklineAttack();
     }
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        GameManager.Instance.Wickline.isAttack = false;
+    }
 }

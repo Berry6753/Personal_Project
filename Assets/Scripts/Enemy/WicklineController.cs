@@ -48,6 +48,7 @@ public class WicklineController : MonoBehaviour
     private bool isDead = false;
     [SerializeField] private bool isInvoked;
     private bool isSkill = false;
+    public bool isAttack = false;
 
     private readonly int hashCombat = Animator.StringToHash("isCombat");
     private readonly int hashNonCombat = Animator.StringToHash("NonCombat");
@@ -65,9 +66,7 @@ public class WicklineController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
-
-        _playerLookAt = new Vector3(_playerTr.position.x, transform.position.y, _playerTr.position.z);
-
+     
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
         _stateMachine.AddState(State.PATROL, new PatrolState(this));
@@ -81,37 +80,51 @@ public class WicklineController : MonoBehaviour
     {
         StartCoroutine(CoEnemyState());
     }
+    private void Update()
+    {
+        _playerLookAt = new Vector3(_playerTr.position.x, transform.position.y, _playerTr.position.z);
+    }
 
     private IEnumerator CoEnemyState()
     {
-        while (true)
+        while (!isDead)
         {
             yield return new WaitForSeconds(0.3f);
 
             if (_hp <= 0)
             { 
                 _stateMachine.ChangeState(State.DIE);
-                Die();
                 yield break;
             }
 
             float distance = Vector3.Distance(transform.position, _playerTr.position);
 
             if (distance <= _attackRange)
-            { 
+            {
+                if (isAttack) continue;
+
                 _stateMachine.ChangeState(State.ATTACK);
             }
-            else if (distance <= _sensingRange)
-            {
-                if (state == State.TRACE) continue;
-
-                _stateMachine.ChangeState(State.TRACE);
-            }
-            else
+            else if (distance >= _sensingRange)
             {
                 if (state == State.PATROL) continue;
 
                 _stateMachine.ChangeState(State.PATROL);
+            }
+            else
+            {
+                if (state == State.PATROL)
+                {
+                    if (state == State.TRACE) continue;
+
+                    _stateMachine.ChangeState(State.TRACE);
+                }
+                if (state == State.ATTACK && !isAttack)
+                {
+                    if (state == State.TRACE) continue;
+
+                    _stateMachine.ChangeState(State.TRACE);
+                }
             }
         }
     }
@@ -163,7 +176,7 @@ public class WicklineController : MonoBehaviour
         anim.SetTrigger(hashBehind);
         transform.position = _playerTr.position + Vector3.back * _attackRange;
         transform.rotation = _playerTr.rotation;
-        //transform.LookAt(_playerLookAt);
+        transform.LookAt(_playerLookAt);
     }
 
 
@@ -265,7 +278,6 @@ public class WicklineController : MonoBehaviour
         public TraceState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
-            enemy.transform.LookAt(enemy._playerLookAt);
             enemy.nav.isStopped = false;
             enemy.anim.SetBool(enemy.hashCombat, true);           
             enemy.OnCombatMove();
@@ -304,17 +316,19 @@ public class WicklineController : MonoBehaviour
         public AttackState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
-            //enemy.transform.LookAt(enemy._playerLookAt);
             enemy.anim.SetBool(enemy.hashCombat, false);
             enemy.anim.SetTrigger(enemy.hashAttack);
             enemy.Attack();
+            enemy.transform.LookAt(enemy._playerLookAt);
             enemy.nav.isStopped = true;
+            enemy.isAttack = true;
             
             enemy.state = State.ATTACK;
         }
         public override void Exit()
         {
             enemy.anim.ResetTrigger(enemy.hashAttack);
+            enemy.isAttack = false;
         }
     }
     private class DieState : BaseEnemyState
@@ -322,6 +336,7 @@ public class WicklineController : MonoBehaviour
         public DieState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
+            enemy.nav.isStopped = true;
             enemy.transform.LookAt(null);
             enemy.anim.SetTrigger(enemy.hashDie);
             enemy.Die();
