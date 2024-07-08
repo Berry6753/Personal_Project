@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Spawner
   - CameraRoot
+  - TargetPos
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - PlayerAttack
   - SkillAttack
   - Wall
-  - 
+  - ActionArea
   - 
   - 
   - 
