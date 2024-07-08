@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7518347435466225023}
   - component: {fileID: 2090828369124938954}
   - component: {fileID: 2901334844349727185}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Omega_withActionSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2432,7 +2432,7 @@ GameObject:
   - component: {fileID: 4359187459198580173}
   m_Layer: 10
   m_Name: Wickline
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2458,6 +2458,7 @@ Transform:
   - {fileID: 8359069421081700578}
   - {fileID: 2941477441414923156}
   - {fileID: 3858703403778751307}
+  - {fileID: 510146177189175033}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2578,6 +2579,7 @@ MonoBehaviour:
   _onCombatMove: 0
   _onAttackNum: 0
   isInvoked: 0
+  isAttack: 0
 --- !u!1 &4289332631749852795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2800,6 +2802,37 @@ Transform:
   m_Father: {fileID: 3604347774039934232}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -10.56777, y: -9.680395, z: 14.643481}
+--- !u!1 &4628340720961803027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 510146177189175033}
+  m_Layer: 10
+  m_Name: TargetPos
+  m_TagString: TargetPos
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &510146177189175033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4628340720961803027}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.975, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3593166461557384173}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4662640554378344694
 GameObject:
   m_ObjectHideFlags: 0

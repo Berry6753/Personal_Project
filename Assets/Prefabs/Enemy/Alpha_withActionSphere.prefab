@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2740002584011447246}
   - component: {fileID: 2740002584011447247}
   - component: {fileID: 2740002584011447244}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Alpha_withActionSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
