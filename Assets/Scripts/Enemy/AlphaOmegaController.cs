@@ -77,13 +77,13 @@ public class AlphaOmegaController : MonoBehaviour
     }
     private IEnumerator CoAOState()
     { 
-        while (true)
+        while (!isDead)
         {
             yield return new WaitForSeconds(0.3f);
 
-            if(_hp<=0)
+            if (_hp <= 0)
             {
-                _stateMachine.ChangeState(State.DIE);    
+                _stateMachine.ChangeState(State.DIE);
                 yield break;
             }
 
