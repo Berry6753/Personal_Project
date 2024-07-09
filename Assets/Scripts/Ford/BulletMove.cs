@@ -44,11 +44,6 @@ public class BulletMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{other}");
-        if (other.gameObject.CompareTag("Enemy"))
-        { 
-            //todo ÇÇÇØ        
-        }
         DestroyBullet();
     }
 }
