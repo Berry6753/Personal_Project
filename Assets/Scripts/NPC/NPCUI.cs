@@ -50,6 +50,10 @@ public class NPCUI : MonoBehaviour
     {
         PlayUIManager.Instance.ActiveLvPointUI();
     }
+    public void OnClick_AgreeQuest()
+    {
+        GameManager.Instance.SetIsTriggerWall();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
