@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,10 +16,11 @@ public class MainMenu : MonoBehaviour
 
     public void OnClick_StartBtn()
     {
-        StartMenu.SetActive(true);
-        Info.SetActive(true);
-        Info.GetComponentInChildren<TMP_Text>().text = "Please select a location to save the new game";
-        UnInteractableBtn();
+        SceneManager.LoadScene("PlayScene");
+        //StartMenu.SetActive(true);
+        //Info.SetActive(true);
+        //Info.GetComponentInChildren<TMP_Text>().text = "Please select a location to save the new game";
+        //UnInteractableBtn();
     }
 
     public void OnClick_LoadBtn()
