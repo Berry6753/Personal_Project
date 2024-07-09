@@ -170,6 +170,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4761213558247930385, guid: ee35ccd9984fc9e44a2190cbda167d9d, type: 3}
+      propertyPath: CollisionModule.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761213558247930385, guid: ee35ccd9984fc9e44a2190cbda167d9d, type: 3}
+      propertyPath: CollisionModule.m_Planes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee35ccd9984fc9e44a2190cbda167d9d, type: 3}
 --- !u!198 &2727404418528583856 stripped
@@ -182,3 +190,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4674350174573861959, guid: ee35ccd9984fc9e44a2190cbda167d9d, type: 3}
   m_PrefabInstance: {fileID: 7478954366760524449}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2819121265880735732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4671660554355213653, guid: ee35ccd9984fc9e44a2190cbda167d9d, type: 3}
+  m_PrefabInstance: {fileID: 7478954366760524449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1534039899491602665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819121265880735732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe90d539b19beba43b6fe529f24999a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
