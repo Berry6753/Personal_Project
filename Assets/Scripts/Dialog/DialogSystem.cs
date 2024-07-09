@@ -8,24 +8,36 @@ public class DialogSystem : MonoBehaviour
 {
     [SerializeField] private List<Speaker> speakerList = new List<Speaker>();        // 대화에 참여하는 캐릭터들의 리스트
     [SerializeField] private List<DialogDate> dialogList = new List<DialogDate>();   // 현재 분기의 대사 목록 리스트
-    [SerializeField] private bool isAutoStart = true;       // 자동 시작 여부
-    private bool isFirst = true;                            // 최초 1회만 호출하기 위한 변수
-    private int currentDialogIndex = -1;                    // 현재 대사 순번
-    private int currentSpeakerIndex = 0;                    // 현재 말을 하는 Speaker의 리스트 순번
+    private bool isFirst;                                   // 최초 1회만 호출하기 위한 변수
+    private bool isClickBtn;
+    private int currentDialogIndex;                         // 현재 대사 순번
+    private int currentSpeakerIndex;                        // 현재 말을 하는 Speaker의 리스트 순번
 
-    //private void Awake()
-    //{
-    //    speakerList = new List<Speaker>();
-    //    dialogList = new List<DialogDate>();
-    //}
-    private void OnEnable()
+    [SerializeField] private Button agree;
+    private NPCUI npc;
+    private Coroutine co;
+
+    private void Awake()
     {
-        SetUp();
-        StartCoroutine(CoDialog());
+        npc = GetComponentInParent<NPCUI>();
     }
+
+    private void OnEnable()
+    {      
+        currentDialogIndex = -1;
+        currentSpeakerIndex = 0;
+        isFirst = true;
+        isClickBtn = false;
+        GameManager.Instance.PauseGame();
+        SetUp();
+        co = StartCoroutine(CoDialog());
+    }
+
     private IEnumerator CoDialog()
     {
         yield return new WaitUntil(() => UpdateDialog());
+        StopCoroutine(co);
+        npc.OnExitInteraction();
     }
     private void SetUp()
     {
@@ -47,10 +59,12 @@ public class DialogSystem : MonoBehaviour
             // 초기화. 캐릭터 이미지는 활성화하고, 대사 관련 UI는 모두 비활성화
             SetUp();
 
-            // 자동 재생(isAutoStart=true)으로 설정되어 있으면 첫 번째 대사 재생
-            if (isAutoStart) SetNextDialog();
-
             isFirst = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            return true;
         }
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
@@ -63,16 +77,18 @@ public class DialogSystem : MonoBehaviour
             // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
             else
             {
-                // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
-                for (int i = 0; i < dialogList.Count; i++)
-                {
-                    SetActiveObjects(speakerList[i], false);
+                //// 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
+                //for (int i = 0; i < speakerList.Count; i++)
+                //{
+                //    SetActiveObjects(speakerList[i], false);
 
-                    // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
-                    speakerList[i].spriteRenderer.gameObject.SetActive(false);
-                }
+                //    // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
+                //    speakerList[i].spriteRenderer.gameObject.SetActive(false);
+                //}
+                agree.gameObject.SetActive(true);
 
-                return true;
+                if (isClickBtn)
+                    return true;
             }
         }
 
@@ -97,7 +113,18 @@ public class DialogSystem : MonoBehaviour
         speakerList[currentSpeakerIndex].textName.text = dialogList[currentDialogIndex].name;
 
         // 현재 화자의 대사 텍스트 설정
-        speakerList[currentSpeakerIndex].textDialogue.text = dialogList[currentDialogIndex].dialogue;
+        //speakerList[currentSpeakerIndex].textDialogue.text = dialogList[currentDialogIndex].dialogue;
+        StartCoroutine(CoTyping());
+    }
+
+    private IEnumerator CoTyping()
+    {
+        for (int i = 0; i < dialogList[currentDialogIndex].dialogue.Length; i++)
+        {
+            speakerList[currentSpeakerIndex].textDialogue.text = dialogList[currentDialogIndex].dialogue.Substring(0, i);
+
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
     }
 
 
@@ -114,6 +141,11 @@ public class DialogSystem : MonoBehaviour
         Color color = speaker.spriteRenderer.color;
         color.a = isActive ? 1 : 0.2f;
         speaker.spriteRenderer.color = color;   
+    }
+
+    public void OnClick_AgreeBtn()
+    {
+        isClickBtn = true;
     }
 }
 
@@ -132,6 +164,6 @@ public struct DialogDate
 {
     public int speakerIndex;                    // 이름과 대사를 출력할 Speaker의 배열 Index 값
     public string name;                         // 캐릭터 이름
-    [TextArea(3, 5)]
+    [TextArea(3, 7)]
     public string dialogue;                     // 대사내용
 }
