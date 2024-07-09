@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCUI : MonoBehaviour
 {
     [SerializeField] private GameObject interactionUI;
-    [SerializeField] private GameObject canvus;
+    [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject DiaLog;
+    [SerializeField] private Button button;
 
     private bool isNear = false;
     private bool isDialog;
@@ -28,16 +30,26 @@ public class NPCUI : MonoBehaviour
 
         if (!isDialog) return;
 
-        canvus.SetActive(true);
+        canvas.SetActive(true);
         DiaLog.SetActive(true);
-
-        if (!DiaLog.activeSelf)
-        {
-            isDialog = false;
-        }
     }
 
+    public void OnExitInteraction()
+    { 
+        button.gameObject.SetActive(false);
+        canvas.SetActive(false);
+        DiaLog.SetActive(false);
+        isDialog = false;
+    }
+    public void ReturnPlay()
+    { 
+        GameManager.Instance.PauseGame();
+    }
 
+    public void OnClick_AgreeLvPoint()
+    {
+        PlayUIManager.Instance.ActiveLvPointUI();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
