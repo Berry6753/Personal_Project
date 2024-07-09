@@ -28,12 +28,44 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private AlphaOmegaController omega;
     public AlphaOmegaController Omega { get { return omega; } }
 
+    [Header("벽콜라이더")]
+    [SerializeField] private BoxCollider wall;
+    public BoxCollider Wall { get { return wall; } }
+
     private bool isGameOnTime;
 
     private void Awake()
     {
         isGameOnTime = true;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Update()
+    {
+        if (alpha.gameObject.activeSelf == false)
+        {
+            Invoke("SetActiveAlpha", 25f);
+        }
+        if (omega.gameObject.activeSelf == false)
+        {
+            Invoke("SetActiveOmega", 25f);
+        }
+        if (wickline.gameObject.activeSelf == false)
+        {
+            Invoke("SetActiveWickline", 25f);
+        }
+    }
+    private void SetActiveAlpha()
+    { 
+        alpha.gameObject.SetActive(true);
+    }
+    private void SetActiveOmega()
+    {
+        omega.gameObject.SetActive(true);
+    }
+    private void SetActiveWickline()
+    {
+        wickline.gameObject.SetActive(true);
     }
 
     public void ChangeState()
@@ -113,5 +145,10 @@ public class GameManager : Singleton<GameManager>
     public void OmegaHurt(float dmg)
     {
         omega.Hurt(dmg);
+    }
+
+    public void SetIsTriggerWall()
+    {
+        wall.isTrigger = true;
     }
 }
