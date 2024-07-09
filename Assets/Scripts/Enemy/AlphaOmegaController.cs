@@ -27,6 +27,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     [SerializeField] private BoxCollider _rAttackCollider;
     [SerializeField] private BoxCollider _lAttackCollider;
+    [SerializeField] private BoxCollider _skillCollider;
 
     private ParticleSystem _skillAttack;
 
@@ -75,6 +76,7 @@ public class AlphaOmegaController : MonoBehaviour
     {
         _rAttackCollider.enabled = false;
         _lAttackCollider.enabled = false;
+        _skillCollider.enabled = false;
         _hp = _maxHp;
         isDead = false;
         isAttack = false;
@@ -198,6 +200,14 @@ public class AlphaOmegaController : MonoBehaviour
                 break;
         }
     }
+    private void EnableSkillCollider()
+    { 
+        _skillCollider.enabled = true;
+    }
+    private void DisableSkillCollider()
+    {
+        _skillCollider.enabled = false;
+    }
 
     public void Hurt(float dmg)
     { 
@@ -207,7 +217,7 @@ public class AlphaOmegaController : MonoBehaviour
     {
         isDead = true;
         DropExp();
-        Invoke("InActive", 10f);
+        Invoke("InActive", 5f);
     }
     private void DropExp()
     {
