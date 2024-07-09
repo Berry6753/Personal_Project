@@ -20,6 +20,8 @@ public class WicklineController : MonoBehaviour
     private Animator anim;
 
     private Transform _playerTr;
+    private Vector3 _defaultPos;
+    private Quaternion _defaultRot;
     [SerializeField] private List<Transform> _patrolTrList;
 
     private Vector3 _playerLookAt;
@@ -30,7 +32,7 @@ public class WicklineController : MonoBehaviour
     [SerializeField] private string _name;
     [SerializeField] private float _maxHp;
     [SerializeField] private float _hp;
-    [SerializeField] private float _damage;
+    public float _damage;
     [SerializeField] private float _sensingRange;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _minExp;
@@ -66,18 +68,27 @@ public class WicklineController : MonoBehaviour
         anim = GetComponent<Animator>();
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
-     
+        _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
+
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
         _stateMachine.AddState(State.PATROL, new PatrolState(this));
         _stateMachine.AddState(State.TRACE, new TraceState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
-        _stateMachine.InitState(State.PATROL);
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        R_AttackCollider.enabled = false;
+        L_AttackCollider.enabled = false;
+        _hp = _maxHp;
+        isDead = false;
+        isAttack = false;
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
+        _stateMachine.InitState(State.PATROL);
         StartCoroutine(CoEnemyState());
     }
     private void Update()
@@ -228,11 +239,35 @@ public class WicklineController : MonoBehaviour
     {
         isDead = true;
         DropExp();
+        Invoke("InActive", 10f);
     }
     private void DropExp()
     { 
         _dropExp = Random.Range(_minExp, _maxExp);
         GameManager.Instance.PlayerGetExp(_dropExp);
+    }
+    private void InActive()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("PlayerAttack"))
+        {
+            Hurt(GameManager.Instance.PlayerInfo._damage);
+            Debug.Log("플레이어가 위클라인 공격");
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("SkillAttack"))
+        {
+            Hurt(GameManager.Instance.PlayerInfo._skillDamage);
+            Debug.Log("플레이어가 위클라인 공격");
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        { 
+            Hurt(GameManager.Instance.Ford.fordDmg);
+            Debug.Log("포드가 위클라인 공격");
+        }
     }
 
     public class BaseEnemyState : BaseState
