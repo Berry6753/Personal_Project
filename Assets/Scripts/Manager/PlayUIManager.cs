@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class PlayUIManager : Singleton<PlayUIManager>
 {
-    [SerializeField] private GameObject saveUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject townNoticeUI;
+    [SerializeField] private GameObject levelPointUI;
     [SerializeField] private TMP_Text Text_TownNotice;
     Coroutine co;
 
@@ -19,7 +19,7 @@ public class PlayUIManager : Singleton<PlayUIManager>
         { 
             StopCoroutine(co);
             co = StartCoroutine(CoTownNotice(text));
-    }
+        }
     }
 
     private IEnumerator CoTownNotice(string text)
@@ -29,5 +29,10 @@ public class PlayUIManager : Singleton<PlayUIManager>
         Text_TownNotice.text = text;
         yield return new WaitForSeconds(5.0f);
         townNoticeUI.SetActive(false);
+    }
+
+    public void ActiveLvPointUI()
+    { 
+        levelPointUI.SetActive(true);
     }
 }
