@@ -9,6 +9,7 @@ TagManager:
   - Spawner
   - CameraRoot
   - TargetPos
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Wall
   - ActionArea
   - NPC
-  - 
+  - Monster
   - 
   - 
   - 
