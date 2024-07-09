@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +22,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     private Transform _playerTr;
     private Vector3 _defaultPos;
+    private Quaternion _defaultRot;
     private Vector3 _playerLookAt;
 
     [SerializeField] private BoxCollider _rAttackCollider;
@@ -32,7 +32,7 @@ public class AlphaOmegaController : MonoBehaviour
 
     [SerializeField] private float _maxHp;
     [SerializeField] private float _hp;
-    [SerializeField] private float _damage;
+    public float _damage;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _maxExp;
     [SerializeField] private float _minExp;
@@ -40,8 +40,8 @@ public class AlphaOmegaController : MonoBehaviour
 
     private int _onAttackNum;
 
-    private bool isDead = false;
-    public bool isAttack = false;
+    private bool isDead;
+    public bool isAttack;
 
     private readonly int hashWalk = Animator.StringToHash("isWalk");
     private readonly int hashAttack = Animator.StringToHash("isAttack");
@@ -56,6 +56,7 @@ public class AlphaOmegaController : MonoBehaviour
 
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
@@ -64,17 +65,18 @@ public class AlphaOmegaController : MonoBehaviour
         _stateMachine.AddState(State.COMEBACK, new ComebackState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
-        _stateMachine.InitState(State.IDLE);
     }
 
     private void OnEnable()
     {
         _rAttackCollider.enabled = false;
         _lAttackCollider.enabled = false;
-    }
-
-    private void Start()
-    {
+        _hp = _maxHp;
+        isDead = false;
+        isAttack = false;
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
+        _stateMachine.InitState(State.IDLE);
         StartCoroutine(CoAOState());
     }
 
@@ -201,11 +203,35 @@ public class AlphaOmegaController : MonoBehaviour
     {
         isDead = true;
         DropExp();
+        Invoke("InActive", 10f);
     }
     private void DropExp()
     {
         _dropExp = Random.Range(_minExp, _maxExp);
         GameManager.Instance.PlayerGetExp(_dropExp);
+    }
+    private void InActive()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("PlayerAttack"))
+        {
+            Hurt(GameManager.Instance.PlayerInfo._damage);
+            Debug.Log("플레이어가 AO 공격");
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("SkillAttack"))
+        {
+            Hurt(GameManager.Instance.PlayerInfo._skillDamage);
+            Debug.Log("플레이어가 AO 공격");
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        {
+            Hurt(GameManager.Instance.Ford.fordDmg);
+            Debug.Log("포드가 AO 공격");
+        }
     }
 
     public class BaseAOState : BaseState
@@ -224,6 +250,7 @@ public class AlphaOmegaController : MonoBehaviour
             ao.nav.isStopped = true;
             ao.anim.SetBool(ao.hashWalk, false);
             ao.transform.LookAt(null);
+            ao.transform.rotation = ao._defaultRot;
 
             ao.state = State.IDLE;
         }
