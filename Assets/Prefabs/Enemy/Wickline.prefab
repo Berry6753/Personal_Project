@@ -1332,6 +1332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7222866697539545107}
   - component: {fileID: 4805090301015579863}
+  - component: {fileID: 2620029997725969849}
   m_Layer: 10
   m_Name: L_Collider
   m_TagString: Untagged
@@ -1367,6 +1368,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 2}
   m_Center: {x: 0, y: 0, z: -0.7}
+--- !u!114 &2620029997725969849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2383646698675437155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a06c2ea5c4c93f409f14cd61059370c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2479900310496727608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,6 +1422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3758769900676293906}
   - component: {fileID: 8257621181548489618}
+  - component: {fileID: 5922254563251283757}
   m_Layer: 10
   m_Name: R_Collider
   m_TagString: Untagged
@@ -1444,6 +1458,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 2}
   m_Center: {x: 0, y: 0, z: -0.7}
+--- !u!114 &5922254563251283757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675319322466004689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a06c2ea5c4c93f409f14cd61059370c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2688079376917168850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,7 +2590,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  _patrolTrList: []
+  _patrolTrList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   R_AttackCollider: {fileID: 8257621181548489618}
   L_AttackCollider: {fileID: 4805090301015579863}
   _name: 
@@ -2573,8 +2603,8 @@ MonoBehaviour:
   _damage: 0
   _sensingRange: 20
   _attackRange: 4
-  _minExp: 0
-  _maxExp: 0
+  _minExp: 100
+  _maxExp: 120
   _nonCombatMoveTr: 0
   _onCombatMove: 0
   _onAttackNum: 0
@@ -5344,7 +5374,7 @@ Transform:
   m_GameObject: {fileID: 8540685593415797229}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3593166461557384173}
