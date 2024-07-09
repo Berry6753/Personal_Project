@@ -448,7 +448,7 @@ MonoBehaviour:
   enemyList: []
   _bulletPrefab: {fileID: 2202583750339331705, guid: e604dd2f6c5f942448c69c5821eaeebb, type: 3}
   _shootPoint: {fileID: 3804159335902632284}
-  fordDmg: 0
+  fordDmg: 5
 --- !u!1 &4325675741202014662
 GameObject:
   m_ObjectHideFlags: 0
