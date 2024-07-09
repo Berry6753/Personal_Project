@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2210612854905412771}
   - component: {fileID: 7029742978021289254}
   - component: {fileID: 3610985924573227300}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WicklineBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
