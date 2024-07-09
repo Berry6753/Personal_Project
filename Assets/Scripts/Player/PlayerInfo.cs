@@ -13,14 +13,22 @@ public class PlayerInfo : MonoBehaviour
     private float _minExp;
     public float _exp;
     public float _damage;
+    public float _skillDamage;
 
     public int _level;
-    private int _skillPoint;
+    public int _levelPoint;
 
     private void Awake()
     {
+        _maxHp = 300.0f;
         _hp = _maxHp;
+        _maxExp = 100.0f;
+        _minExp = 0f;
         _exp = _minExp;
+        _damage = 50.0f;
+        _skillDamage = _damage * 1.5f;
+        _level = 1; 
+        _levelPoint = 0;
     }
 
     private void Update()
@@ -39,24 +47,30 @@ public class PlayerInfo : MonoBehaviour
     private void LevelUp()
     {
         _level++;
-        _skillPoint += 5;
+        _levelPoint += 5;
         _hp = _maxHp;
-        _exp = _minExp;
+        _exp -= _maxExp;
     }
 
     private void UpScaleExp()
     {
-        _maxExp *= 1.2f;
+        _maxExp += 20f;
     }
     public void UpScaleHp()
     {
-        _skillPoint--;
+        if (_levelPoint <= 0) return;
+
+        _levelPoint--;
         _maxHp += 20f;
+        _hp += 20f;
     }
     public void UpScaleDmg()
     {
-        _skillPoint--;
-        _damage += 20f;
+        if (_levelPoint <= 0) return;
+
+        _levelPoint--;
+        _damage += 10f;
+        _skillDamage = _damage * 1.5f;
     }
     public void GetExp(float get)
     {

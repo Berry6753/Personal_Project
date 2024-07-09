@@ -17,7 +17,7 @@ public class PlayerMove : MonoBehaviour
     }
     public State state = State.IDLE;
 
-    private CharacterController cc;
+    private CharacterController cc;   
     private Animator anim;
     private GameObject _mainCamera;
 
@@ -123,6 +123,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnMove_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
 
         inputMoveMent = context.ReadValue<Vector3>();
@@ -166,6 +167,11 @@ public class PlayerMove : MonoBehaviour
 
     public void OnLook_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None)
+        {
+            inputRotation = Vector2.zero;
+            return;
+        }
         inputRotation = context.ReadValue<Vector2>();
     }
     private void LookPlayer()
@@ -189,6 +195,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnJump_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
         if (_isAttack) return;
         if (_isGaurd) return;
@@ -221,6 +228,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDash_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
         if (_isMove) return;
         if (_isAttack) return;
@@ -267,6 +275,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void OnAttack_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
         if (_isMove) return;
         if (_isGaurd) return;
@@ -281,6 +290,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnGaurd_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
         if (_isMove) return;
         if (_isAttack) return;
@@ -299,19 +309,10 @@ public class PlayerMove : MonoBehaviour
 
     public void OnAuxiliaryAttack_Player(InputAction.CallbackContext context)
     {
+        if (Cursor.lockState == CursorLockMode.None) return;
         if (_isDie) return;
 
         _auxiliary = context.ReadValue<float>();
-    }
-
-    public void OnInteraction_Player(InputAction.CallbackContext context)
-    {
-        if (_isDie) return;
-
-        if (context.started)
-        {
-
-        }
     }
 
     public void OnPause_Player(InputAction.CallbackContext context)
@@ -377,7 +378,7 @@ public class PlayerMove : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
     }
-
+    
     private class BasePlayerState : BaseState
     {
         protected PlayerMove player;
