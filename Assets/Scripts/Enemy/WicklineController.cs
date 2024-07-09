@@ -242,7 +242,7 @@ public class WicklineController : MonoBehaviour
     {
         isDead = true;
         DropExp();
-        Invoke("InActive", 10f);
+        Invoke("InActive", 5f);
     }
     private void DropExp()
     { 
