@@ -81,7 +81,7 @@ public class FordController : MonoBehaviour
     {
         if (enemyList.Count > 0 && _isAttack)
         {
-            transform.LookAt(enemyList[0].transform.position + transform.up);
+            transform.LookAt(enemyList[0].transform.position + transform.up * 1.5f);
         }
         else
         {
@@ -133,6 +133,13 @@ public class FordController : MonoBehaviour
         Destroy(bullet.gameObject);
     }
 
+    public void UpScaleDmg()
+    {
+        if (GameManager.Instance.PlayerInfo._levelPoint <= 0) return;
+
+        GameManager.Instance.PlayerInfo._levelPoint--;
+        fordDmg++;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
