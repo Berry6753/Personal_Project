@@ -8,6 +8,7 @@ public class WicklineBulletMove : MonoBehaviour
     private Vector3 _direction;
 
     private float _bulletSpeed = 30.0f;
+    private float _bullletDamage;
 
     private bool _isDestroyed;
     
@@ -46,7 +47,7 @@ public class WicklineBulletMove : MonoBehaviour
         Debug.Log($"{other}");
         if (other.gameObject.CompareTag("Player"))
         {
-            //todo ÇÇÇØ        
+            GameManager.Instance.PlayerHurt(_bullletDamage);    
         }
         DestroyBullet();
     }
