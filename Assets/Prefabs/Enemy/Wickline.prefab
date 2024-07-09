@@ -2590,17 +2590,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  _patrolTrList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _patrolTrList: []
   R_AttackCollider: {fileID: 8257621181548489618}
   L_AttackCollider: {fileID: 4805090301015579863}
   _name: 
   _maxHp: 100
   _hp: 100
-  _damage: 0
+  _damage: 20
   _sensingRange: 20
   _attackRange: 4
   _minExp: 100
