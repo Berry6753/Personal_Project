@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5019679975006950364}
   - component: {fileID: 8190549310350896851}
+  - component: {fileID: 7474641226155696796}
   m_Layer: 10
   m_Name: L_Collider
   m_TagString: Untagged
@@ -174,6 +175,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.3, z: 0.3}
   m_Center: {x: -0.5, y: 0, z: 0}
+--- !u!114 &7474641226155696796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745884537889719131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe5dd318d87514799b1efbf026b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1537901549304285785
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 1964470397985040677}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1477043974537985208}
@@ -497,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175631120229110204}
   - component: {fileID: 8149143277052101486}
+  - component: {fileID: 5085878045124819074}
   m_Layer: 10
   m_Name: R_Collider
   m_TagString: Untagged
@@ -532,6 +546,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.3, z: 0.3}
   m_Center: {x: -0.5, y: 0, z: 0}
+--- !u!114 &5085878045124819074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2761994257428133729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe5dd318d87514799b1efbf026b05a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2846059391702133974
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,8 +2246,8 @@ MonoBehaviour:
   _hp: 100
   _damage: 0
   _attackRange: 3
-  _maxExp: 0
-  _minExp: 0
+  _maxExp: 70
+  _minExp: 50
   isAttack: 0
 --- !u!1 &9037421660307464006
 GameObject:
