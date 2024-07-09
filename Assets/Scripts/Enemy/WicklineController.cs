@@ -28,6 +28,7 @@ public class WicklineController : MonoBehaviour
 
     [SerializeField] private BoxCollider R_AttackCollider;
     [SerializeField] private BoxCollider L_AttackCollider;
+    private ParticleSystem _skillAttack;
 
     [SerializeField] private string _name;
     [SerializeField] private float _maxHp;
@@ -70,6 +71,8 @@ public class WicklineController : MonoBehaviour
         _playerTr = GameObject.FindGameObjectWithTag("Player").transform;
         _defaultPos = transform.position;
         _defaultRot = transform.rotation;
+
+        _skillAttack = ParticleManager.Instance.WicklineParticle;
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
@@ -249,6 +252,17 @@ public class WicklineController : MonoBehaviour
     private void InActive()
     {
         gameObject.SetActive(false);
+    }
+
+    private void PlayParticle()
+    {
+        Vector3 initPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        _skillAttack.transform.position = initPos;
+        Invoke("OnPlayParticle", 2f);
+    }
+    private void OnPlayParticle()
+    {
+        _skillAttack.Play();
     }
 
     private void OnTriggerEnter(Collider other)
