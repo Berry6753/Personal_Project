@@ -28,7 +28,13 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private AlphaOmegaController omega;
     public AlphaOmegaController Omega { get { return omega; } }
 
-    private bool isGameOnTime = true;
+    private bool isGameOnTime;
+
+    private void Awake()
+    {
+        isGameOnTime = true;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     public void ChangeState()
     {
@@ -48,6 +54,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (isGameOnTime)
         {
+            Cursor.lockState = CursorLockMode.None;
             isGameOnTime = false;
             Time.timeScale = 0.0f;
         }
@@ -55,6 +62,7 @@ public class GameManager : Singleton<GameManager>
         {
             Time.timeScale = 1.0f;
             isGameOnTime = true;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
