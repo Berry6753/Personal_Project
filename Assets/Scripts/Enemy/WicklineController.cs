@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +49,8 @@ public class WicklineController : MonoBehaviour
     [SerializeField] private int _onCombatMove;
     [SerializeField] private int _onAttackNum;
 
+    public Action<WicklineController> onDeath;
+    public Action<WicklineController> disable;
     private bool isDead = false;
     [SerializeField] private bool isInvoked;
     private bool isSkill = false;
@@ -80,6 +83,8 @@ public class WicklineController : MonoBehaviour
         _stateMachine.AddState(State.TRACE, new TraceState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
+
+        GameManager.Instance.PlayerInfo.onDie += HandlerPlayerDie;
     }
 
     private void OnEnable()
@@ -93,6 +98,7 @@ public class WicklineController : MonoBehaviour
         transform.rotation = _defaultRot;
         _stateMachine.InitState(State.PATROL);
         StartCoroutine(CoEnemyState());
+        nav.enabled = true;
     }
     private void Update()
     {
@@ -148,7 +154,7 @@ public class WicklineController : MonoBehaviour
         int previousMoveTr = _nonCombatMoveTr;
         while (previousMoveTr == _nonCombatMoveTr)
         {
-            _nonCombatMoveTr = Random.Range(0, _patrolTrList.Count);
+            _nonCombatMoveTr = UnityEngine.Random.Range(0, _patrolTrList.Count);
         }
     }
     private void NonCombatMove()
@@ -160,7 +166,7 @@ public class WicklineController : MonoBehaviour
 
     private void OnCombatThink()
     {
-        _onCombatMove = Random.Range(0, 4);
+        _onCombatMove = UnityEngine.Random.Range(0, 4);
     }
     private void OnCombatMove()
     {
@@ -196,7 +202,7 @@ public class WicklineController : MonoBehaviour
 
     public void OnAttackThink()
     { 
-        _onAttackNum = Random.Range(0, 10);
+        _onAttackNum = UnityEngine.Random.Range(0, 10);
     }
     private void Attack()
     { 
@@ -242,15 +248,18 @@ public class WicklineController : MonoBehaviour
     {
         isDead = true;
         DropExp();
+        nav.enabled = false;
+        onDeath?.Invoke(this);
         Invoke("InActive", 5f);
     }
     private void DropExp()
     { 
-        _dropExp = Random.Range(_minExp, _maxExp);
+        _dropExp = UnityEngine.Random.Range(_minExp, _maxExp);
         GameManager.Instance.PlayerGetExp(_dropExp);
     }
     private void InActive()
     {
+        disable?.Invoke(this);  
         gameObject.SetActive(false);
     }
 
@@ -263,6 +272,11 @@ public class WicklineController : MonoBehaviour
     private void OnPlayParticle()
     {
         _skillAttack.Play();
+    }
+
+    private void HandlerPlayerDie(PlayerInfo info)
+    {
+        _stateMachine.ChangeState(State.PATROL);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -385,7 +399,6 @@ public class WicklineController : MonoBehaviour
         public DieState(WicklineController enemy) : base(enemy) { }
         public override void Enter()
         {
-            enemy.nav.isStopped = true;
             enemy.transform.LookAt(null);
             enemy.anim.SetTrigger(enemy.hashDie);
             enemy.Die();

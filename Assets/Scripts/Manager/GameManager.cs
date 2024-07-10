@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,23 +39,29 @@ public class GameManager : Singleton<GameManager>
     {
         isGameOnTime = true;
         Cursor.lockState = CursorLockMode.Locked;
+        wickline.disable += HandlerWicklineDisable;
+        alpha.disable += HandlerAlphaDisable;
+        omega.disable += HandlerOmegaDisable;
+        playerInfo.onDie += HandlerPlayerDie;
+    }
+    private void HandlerAlphaDisable(AlphaOmegaController controller)
+    {
+        Invoke("SetActiveAlpha", 25f);
+    }
+    private void HandlerOmegaDisable(AlphaOmegaController controller)
+    {
+        Invoke("SetActiveOmega", 25f);
+    }
+    private void HandlerWicklineDisable(WicklineController controller)
+    {
+        Invoke("SetActiveWickline", 25f);
+    }
+    private void HandlerPlayerDie(PlayerInfo info)
+    {
+        Time.timeScale = 0.2f;
+        Invoke("ResetPlayer", 2f);
     }
 
-    private void Update()
-    {
-        if (alpha.gameObject.activeSelf == false)
-        {
-            Invoke("SetActiveAlpha", 25f);
-        }
-        if (omega.gameObject.activeSelf == false)
-        {
-            Invoke("SetActiveOmega", 25f);
-        }
-        if (wickline.gameObject.activeSelf == false)
-        {
-            Invoke("SetActiveWickline", 25f);
-        }
-    }
     private void SetActiveAlpha()
     { 
         alpha.gameObject.SetActive(true);
@@ -66,6 +73,12 @@ public class GameManager : Singleton<GameManager>
     private void SetActiveWickline()
     {
         wickline.gameObject.SetActive(true);
+    }
+    private void ResetPlayer()
+    {
+        Time.timeScale = 1.0f;
+        player.gameObject.SetActive(false);
+        player.gameObject.SetActive(true);
     }
 
     public void ChangeState()

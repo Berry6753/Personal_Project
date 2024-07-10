@@ -35,10 +35,13 @@ public class PlayerMove : MonoBehaviour
     private Vector3 inputMoveMent = Vector3.zero;
     private Vector2 inputRotation = Vector2.zero;
 
+    private Vector3 _defaultPos;
+    private Quaternion _defaultRot;
+
     [SerializeField] private int _playerLayer;
     [SerializeField] private int _dashLayer;
 
-    private float _moveSpeed = 5.0f;
+    private float _moveSpeed = 8.0f;
     private float _rotSpeed = 10.0f;
     private float _dashSpeed = 20.0f;
     private float _jumpSpeed = 20.0f;
@@ -68,7 +71,7 @@ public class PlayerMove : MonoBehaviour
     private bool _isJump = false;
     private bool _isAttack = false;
     private bool _isGaurd = false;
-    private bool _isDie = false;
+    public bool _isDie = false;
     private bool _isInput = false;
 
     private void Awake()
@@ -77,6 +80,9 @@ public class PlayerMove : MonoBehaviour
         anim = GetComponent<Animator>();
         if (_mainCamera == null)
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+        _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
 
         _stateMachine = gameObject.AddComponent<StateMachine>();
 
@@ -87,10 +93,17 @@ public class PlayerMove : MonoBehaviour
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.GAURD, new GaurdState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
-        _stateMachine.InitState(State.IDLE);
 
         _playerInfo = GetComponent<PlayerInfo>();
-        _playerInfo.onDie += OnPlayerDie;
+        _playerInfo.onDie += HandlerOnPlayerDie;
+    }
+
+    private void OnEnable()
+    {
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
+        _stateMachine.InitState(State.IDLE);
+        _isDie = false;
     }
 
     private void Update()
@@ -336,7 +349,7 @@ public class PlayerMove : MonoBehaviour
         return _isInput;
     }
 
-    private void OnPlayerDie(PlayerInfo playerInfo)
+    private void HandlerOnPlayerDie(PlayerInfo playerInfo)
     {
         if (state == State.DIE) return;
 

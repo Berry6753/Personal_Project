@@ -42,6 +42,20 @@ public class FordController : MonoBehaviour
         _stateMachine.InitState(State.IDLE);
 
         _bulletPool = new ObjectPool<BulletMove>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet);
+
+        GameManager.Instance.Wickline.onDeath += HandlerWilcklineDie;
+        GameManager.Instance.Alpha.onDeath += HandlerAODie;
+        GameManager.Instance.Omega.onDeath += HandlerAODie;
+    }
+
+    private void HandlerAODie(AlphaOmegaController ao)
+    {
+        enemyList.Remove(ao.gameObject);
+    }
+
+    private void HandlerWilcklineDie(WicklineController wickline)
+    {
+        enemyList.Remove(wickline.gameObject);
     }
 
     private void Start()

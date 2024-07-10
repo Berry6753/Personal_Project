@@ -49,6 +49,5 @@ public class WicklineBulletMove : MonoBehaviour
         {
             GameManager.Instance.PlayerHurt(_bullletDamage);    
         }
-        DestroyBullet();
     }
 }

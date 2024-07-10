@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,9 @@ public class AlphaOmegaController : MonoBehaviour
 
     private int _onAttackNum;
 
+    public Action<AlphaOmegaController> onDeath;
+    public Action<AlphaOmegaController> disable;
+
     private bool isDead;
     public bool isAttack;
 
@@ -70,6 +74,8 @@ public class AlphaOmegaController : MonoBehaviour
         _stateMachine.AddState(State.COMEBACK, new ComebackState(this));
         _stateMachine.AddState(State.ATTACK, new AttackState(this));
         _stateMachine.AddState(State.DIE, new DieState(this));
+
+        GameManager.Instance.PlayerInfo.onDie += HandlerPlayerDie;
     }
 
     private void OnEnable()
@@ -84,6 +90,7 @@ public class AlphaOmegaController : MonoBehaviour
         transform.rotation = _defaultRot;
         _stateMachine.InitState(State.IDLE);
         StartCoroutine(CoAOState());
+        nav.enabled = true;
     }
 
     private void Update()
@@ -133,7 +140,7 @@ public class AlphaOmegaController : MonoBehaviour
     public void OnAttackThink()
     {
         //_onAttackNum = 3;
-        _onAttackNum = Random.Range(0, 5);
+        _onAttackNum = UnityEngine.Random.Range(0, 5);
     }
     private void OnAttack()
     { 
@@ -217,15 +224,18 @@ public class AlphaOmegaController : MonoBehaviour
     {
         isDead = true;
         DropExp();
+        nav.enabled = false;
+        onDeath?.Invoke(this);
         Invoke("InActive", 5f);
     }
     private void DropExp()
     {
-        _dropExp = Random.Range(_minExp, _maxExp);
+        _dropExp = UnityEngine.Random.Range(_minExp, _maxExp);
         GameManager.Instance.PlayerGetExp(_dropExp);
     }
     private void InActive()
     {
+        disable?.Invoke(this);
         gameObject.SetActive(false);
     }
 
@@ -238,6 +248,11 @@ public class AlphaOmegaController : MonoBehaviour
     private void OnPlayParticle()
     {
         _skillAttack.Play();
+    }
+
+    private void HandlerPlayerDie(PlayerInfo info)
+    {
+        _stateMachine.ChangeState(State.COMEBACK);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -351,7 +366,6 @@ public class AlphaOmegaController : MonoBehaviour
         public DieState(AlphaOmegaController ao) : base(ao) { }
         public override void Enter()
         {
-            ao.nav.isStopped = true;
             ao.anim.SetTrigger(ao.hashDie);
             ao.transform.LookAt(null);
             ao.Die();

@@ -20,8 +20,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void Awake()
     {
-        _maxHp = 300.0f;
-        _hp = _maxHp;
+        _maxHp = 300.0f;       
         _maxExp = 100.0f;
         _minExp = 0f;
         _exp = _minExp;
@@ -29,6 +28,11 @@ public class PlayerInfo : MonoBehaviour
         _skillDamage = _damage * 1.5f;
         _level = 1; 
         _levelPoint = 0;
+    }
+
+    private void OnEnable()
+    {
+        _hp = _maxHp;
     }
 
     private void Update()
@@ -40,6 +44,8 @@ public class PlayerInfo : MonoBehaviour
         }
         if (_hp <= 0)
         {
+            if (GameManager.Instance.Player._isDie) return;
+
             Die();
         }
     }
