@@ -44,5 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49a67daa500f2244a54c91659b0c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
   player: {fileID: 0}
   ford: {fileID: 0}
+  wickline: {fileID: 0}
+  alpha: {fileID: 0}
+  omega: {fileID: 0}
+  wall: {fileID: 0}
+  particle: {fileID: 0}
