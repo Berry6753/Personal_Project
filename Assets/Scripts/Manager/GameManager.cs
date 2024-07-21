@@ -33,6 +33,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private BoxCollider wall;
     public BoxCollider Wall { get { return wall; } }
 
+    [Header("벽 파티클")]
+    [SerializeField] private ParticleSystem particle;
+    public ParticleSystem Particle { get { return particle; } }
+
     private bool isGameOnTime;
 
     private void Awake()
@@ -163,5 +167,6 @@ public class GameManager : Singleton<GameManager>
     public void SetIsTriggerWall()
     {
         wall.isTrigger = true;
+        particle.Stop();
     }
 }
