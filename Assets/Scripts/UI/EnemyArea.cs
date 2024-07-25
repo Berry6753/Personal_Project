@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class EnemyArea : MonoBehaviour
 {
+    private BoxCollider wallCol;
+
     private bool isIn;
+
+    private void Awake()
+    {
+        wallCol = GetComponent<BoxCollider>();
+    }
 
     private void OnEnable()
     {
         isIn = false;
+
+        if (wallCol.isTrigger)
+            ParticleManager.Instance.OnStopWallParticle();
+        else
+            ParticleManager.Instance.OnPlayWallParticle(transform.position);
     }
 
     private void OnTriggerEnter(Collider other)
