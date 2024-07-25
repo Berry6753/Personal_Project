@@ -4679,6 +4679,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1425468058040956771}
+        m_TargetAssemblyTypeName: QuestNPC, Assembly-CSharp
+        m_MethodName: OnClick_ClearQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5739728286201435065
 GameObject:
   m_ObjectHideFlags: 0
@@ -6095,6 +6107,7 @@ GameObject:
   - component: {fileID: 6993899407265302785}
   - component: {fileID: 6993899407265302787}
   - component: {fileID: 6993899407265302796}
+  - component: {fileID: 1425468058040956771}
   m_Layer: 16
   m_Name: Rio_S005 1
   m_TagString: Untagged
@@ -6190,6 +6203,21 @@ MonoBehaviour:
   canvas: {fileID: 2969398669699512790}
   DiaLog: {fileID: 5089391875755440454}
   button: {fileID: 704646026911485212}
+--- !u!114 &1425468058040956771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6993899407265302784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35fb19bcee9c2546b5f5e4feebc2cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _questMarkOnWorld: {fileID: 3916589899820113499}
+  _questMarkOnMinimap: {fileID: 1941477632201339687}
+  _minimapIcon: {fileID: 6788600744817941131}
 --- !u!1 &7029549967819273971
 GameObject:
   m_ObjectHideFlags: 0
