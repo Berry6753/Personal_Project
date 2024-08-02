@@ -33,6 +33,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private BoxCollider wall;
     public BoxCollider Wall { get { return wall; } }
 
+    private MonsterController monster;
+
     private bool isGameOnTime;
 
     private void Awake()
@@ -46,20 +48,24 @@ public class GameManager : Singleton<GameManager>
     }
     private void HandlerAlphaDisable(AlphaOmegaController controller)
     {
-        Invoke("SetActiveAlpha", 25f);
+        Invoke(nameof(SetActiveAlpha), 25f);
     }
     private void HandlerOmegaDisable(AlphaOmegaController controller)
     {
-        Invoke("SetActiveOmega", 25f);
+        Invoke(nameof(SetActiveOmega), 25f);
     }
     private void HandlerWicklineDisable(WicklineController controller)
     {
-        Invoke("SetActiveWickline", 25f);
+        Invoke(nameof(SetActiveWickline), 25f);
     }
     private void HandlerPlayerDie(PlayerInfo info)
     {
         Time.timeScale = 0.2f;
-        Invoke("ResetPlayer", 2f);
+        Invoke(nameof(ResetPlayer), 2f);
+    }
+    public void HandlerMonsterDisable(MonsterController monster)
+    {
+        StartCoroutine(SetActiveMonster(monster, 10f));
     }
 
     private void SetActiveAlpha()
@@ -74,9 +80,15 @@ public class GameManager : Singleton<GameManager>
     {
         wickline.gameObject.SetActive(true);
     }
+    private IEnumerator SetActiveMonster(MonsterController monster, float time)
+    {
+        yield return new WaitForSeconds(time);
+        monster.gameObject.SetActive(true);
+    }
     private void ResetPlayer()
     {
         Time.timeScale = 1.0f;
+        PlayUIManager.Instance.DisablePlayerDie();
         player.gameObject.SetActive(false);
         player.gameObject.SetActive(true);
     }
