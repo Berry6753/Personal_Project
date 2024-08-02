@@ -87,9 +87,19 @@ public class PlayerInfo : MonoBehaviour
         if (GameManager.Instance.Player._gaurd != 0) return;
 
         _hp -= dmg;
+
+        if (_hp / _maxHp < 0.3f)
+        {
+            PlayUIManager.Instance.PlayerHurt();
+
+            if (_hp <= 0) return;
+
+            PlayUIManager.Instance.DisableHurt();
+        }
     }
     private void Die()
     {
         onDie?.Invoke(this);
+        PlayUIManager.Instance.PlayerDie();
     }
 }
