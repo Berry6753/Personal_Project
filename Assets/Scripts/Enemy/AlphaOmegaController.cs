@@ -226,7 +226,7 @@ public class AlphaOmegaController : MonoBehaviour
         DropExp();
         nav.enabled = false;
         onDeath?.Invoke(this);
-        Invoke("InActive", 5f);
+        Invoke(nameof(InActive), 5f);
     }
     private void DropExp()
     {
@@ -243,7 +243,7 @@ public class AlphaOmegaController : MonoBehaviour
     {
         Vector3 initPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         _skillAttack.transform.position = initPos;
-        Invoke("OnPlayParticle", 2f);
+        Invoke(nameof(OnPlayParticle), 2f);
     }
     private void OnPlayParticle()
     {

@@ -8,6 +8,8 @@ public class PlayUIManager : Singleton<PlayUIManager>
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject townNoticeUI;
     [SerializeField] private GameObject levelPointUI;
+    [SerializeField] private GameObject playerHurtUI;
+    [SerializeField] private GameObject playerDieUI;
     [SerializeField] private TMP_Text Text_TownNotice;
     Coroutine co;
 
@@ -34,5 +36,28 @@ public class PlayUIManager : Singleton<PlayUIManager>
     public void ActiveLvPointUI()
     { 
         levelPointUI.SetActive(true);
+    }
+
+    public void PlayerHurt()
+    { 
+        playerHurtUI.SetActive(true);
+    }
+    public void DisableHurt()
+    {
+        Invoke(nameof(DisablePlayerHurt), 0.5f);
+    }
+    private void DisablePlayerHurt()
+    {
+        playerHurtUI.SetActive(false);
+    }
+
+    public void PlayerDie()
+    {
+        playerDieUI.SetActive(true);
+    }
+    public void DisablePlayerDie()
+    {
+        playerHurtUI.SetActive(false);
+        playerDieUI.SetActive(false);
     }
 }
