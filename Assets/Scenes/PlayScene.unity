@@ -4205,6 +4205,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1063012561}
     m_Modifications:
+    - target: {fileID: 6017177949767426733, guid: 53f0b774c303a01409c3689181295bff, type: 3}
+      propertyPath: dialogList.Array.data[0].dialogue
+      value: "\uC774 \uC55E\uBD80\uD130\uB294 \uC801\uC774 \uB098\uC62C \uC218 \uC788\uC5B4\uC11C
+        \uC704\uD5D8\uD574\uC694.\n\uADF8\uB798\uB3C4 \uC9C0\uB098\uAC00\uC2DC\uACA0\uC5B4\uC694?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017177949767426733, guid: 53f0b774c303a01409c3689181295bff, type: 3}
+      propertyPath: dialogList.Array.data[1].dialogue
+      value: "\uB124. \uD558\uC9C0\uB9CC \uC9C0\uAE08 \uBB34\uC5B8\uAC00\uB85C \uB9C9\uD600\uC788\uB294\uB370
+        \n\uAE38\uC744 \uC5F4\uC5B4\uC8FC\uC2E4 \uC218 \uC788\uB098\uC694?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017177949767426733, guid: 53f0b774c303a01409c3689181295bff, type: 3}
+      propertyPath: dialogList.Array.data[2].dialogue
+      value: "\uC54C\uACA0\uC2B5\uB2C8\uB2E4. \n\uC9C0\uB098\uAC08 \uC218 \uC788\uB3C4\uB85D
+        \uAE38\uC744 \uC5F4\uC5B4\uB4DC\uB9B4\uAC8C\uC694."
+      objectReference: {fileID: 0}
     - target: {fileID: 6993899407265302784, guid: 53f0b774c303a01409c3689181295bff, type: 3}
       propertyPath: m_Name
       value: Rio_S005 1
